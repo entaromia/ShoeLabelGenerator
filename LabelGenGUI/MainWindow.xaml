@@ -1,0 +1,83 @@
+﻿<Window x:Class="LabelGenGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:local="clr-namespace:LabelGenGUI"
+        Title="Label Generator" Height="370" Width="270" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontWeight" Value="DemiBold" />
+        </Style>
+        <local:EmptyToIntConverter x:Key="EmptyToIntConverter" />
+    </Window.Resources>
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="brandRow" Height="Auto" />
+            <RowDefinition x:Name="qualityRow" Height="Auto"/>
+            <RowDefinition x:Name="colorRow" Height="Auto" />
+            <RowDefinition x:Name="numberRow" Height="Auto"/>
+            <RowDefinition x:Name="shoeInputOneRow" Height="Auto"/>
+            <RowDefinition x:Name="shoeInputTwoRow" Height="Auto" />
+            <RowDefinition x:Name="buttonsRow" Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="Marka:" Padding="0,0,20,0"/>
+            <ComboBox ItemsSource="{Binding Brands}" SelectedItem="{Binding SelectedBrand}" SelectedIndex="0" FontSize="14" Width="140"/>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="Kalite:" Padding="0,0,20,0"/>
+            <ComboBox ItemsSource="{Binding Qualities}" SelectedItem="{Binding SelectedQuality}" SelectedIndex="0" FontSize="14" Width="140"/>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="Renk:" Padding="0,0,20,0"/>
+            <TextBox Text="{Binding Color}" x:Name="colorTextBox" FontSize="14" Width="140" />
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock FontSize="14" VerticalAlignment="Center" Text="Fiş No:" Padding="0,0,15,0"/>
+            <TextBox Text="{Binding ReceiptNo}" x:Name="numberTextBox" FontSize="14" Width="140" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="38" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[0], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="39" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[1], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="40" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[2], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="41" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[3], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="42" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[4], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="43" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[5], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="44" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[6], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+            <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock TextAlignment="Center" FontSize="16" Text="45" TextDecorations="Underline"/>
+                <TextBox Text="{Binding ShoeCounts[7], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+            <Button FontWeight="DemiBold" Margin="10" FontSize="16" Padding="5" Content="Hazırla" Click="Button_Click"/>
+            <TextBlock Text="Toplam: " VerticalAlignment="Center"/>
+            <TextBlock Text="{Binding Total}" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window> 

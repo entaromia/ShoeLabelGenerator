@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageSharpLabelGen", "ImageSharpLabelGen\ImageSharpLabelGen.csproj", "{6F62B74D-51B7-4AFA-846C-C02D52445E92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelGenGUI", "LabelGenGUI\LabelGenGUI.csproj", "{E1940CDE-3CBF-4F50-8CC6-E2F44C9E0D34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F62B74D-51B7-4AFA-846C-C02D52445E92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F62B74D-51B7-4AFA-846C-C02D52445E92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F62B74D-51B7-4AFA-846C-C02D52445E92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F62B74D-51B7-4AFA-846C-C02D52445E92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1940CDE-3CBF-4F50-8CC6-E2F44C9E0D34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1940CDE-3CBF-4F50-8CC6-E2F44C9E0D34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1940CDE-3CBF-4F50-8CC6-E2F44C9E0D34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1940CDE-3CBF-4F50-8CC6-E2F44C9E0D34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F829F6D3-1134-4B39-98DD-A375D1063CF3}
+	EndGlobalSection
+EndGlobal
