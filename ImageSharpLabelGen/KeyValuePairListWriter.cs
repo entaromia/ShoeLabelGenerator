@@ -8,7 +8,7 @@ namespace ImageSharpLabelGen
 {
     static class KeyValuePairListWriter
     {
-        public static IImageProcessingContext WritePairs(this IImageProcessingContext context, List< KeyValuePair<string,string> > pairList, RichTextOptions textOptions, Brush brush)
+        public static IImageProcessingContext WritePairs(this IImageProcessingContext context, List<KeyValuePair<string, string>> pairList, RichTextOptions textOptions, Brush brush)
         {
             int imageWidth = context.GetCurrentSize().Width;
 

@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using ImageSharpLabelGen;
+﻿using ImageSharpLabelGen;
+using System.Windows;
 
 namespace LabelGenGUI
 {
@@ -30,10 +30,10 @@ namespace LabelGenGUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (shoeData.SelectedBrand is not null && 
-                shoeData.SelectedQuality is not null && 
-                shoeData.Color is not null && 
-                shoeData.ReceiptNo is not null) 
+            if (shoeData.SelectedBrand is not null &&
+                shoeData.SelectedQuality is not null &&
+                shoeData.Color is not null &&
+                shoeData.ReceiptNo is not null)
             {
                 ParcelWriter parcelWriter = new(1140, 720);
                 parcelWriter.WriteParcel(shoeData.ShoeCounts, shoeData.SelectedBrand, shoeData.SelectedQuality, shoeData.Color, shoeData.ReceiptNo);

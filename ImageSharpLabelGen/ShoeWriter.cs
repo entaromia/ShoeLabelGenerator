@@ -13,7 +13,7 @@ namespace ImageSharpLabelGen
         public int ImageWidth { get; set; } = imageWidth;
         public int ImageHeight { get; set; } = imageHeight;
         public SolidBrush TextBrush { get; set; } = Brushes.Solid(Color.Black);
-        public SolidBrush BackgroundBrush { get; set; } = Brushes.Solid(Color.White); 
+        public SolidBrush BackgroundBrush { get; set; } = Brushes.Solid(Color.White);
         public Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 50, FontStyle.Bold);
         public string OutputDirectory = Path.Join("output", DateTime.Now.ToString("dd-MM-yyyy-HHmmss"));
 
