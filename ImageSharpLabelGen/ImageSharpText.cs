@@ -10,15 +10,13 @@ namespace ImageSharpLabelGen
     /// <br/> Allows setting and accessing some text properties easier
     /// </summary>
     /// <param name="font">The font to use</param>
-    public struct ImageSharpText(Font font)
+    public class ImageSharpText(Font font, string text = "")
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = text;
 
         public RichTextOptions TextOptions { get; private set; } = new RichTextOptions(font);
 
-        private TextDecorations _textDecorations;
-
-        public IReadOnlyList<RichTextRun> TextRuns { get; private set; }
+        public IReadOnlyList<RichTextRun> TextRuns { get; private set; } = [];
 
         public PointF Location
         {
@@ -28,10 +26,8 @@ namespace ImageSharpLabelGen
 
         public TextDecorations TextDecorations
         {
-            get => _textDecorations;
             set
             {
-                _textDecorations = value;
                 TextRuns = [
                     new RichTextRun()
                     {

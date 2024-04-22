@@ -1,4 +1,5 @@
 ﻿using ImageSharpLabelGen;
+using System.IO;
 using System.Windows;
 
 namespace LabelGenGUI
@@ -35,8 +36,8 @@ namespace LabelGenGUI
                 shoeData.Color is not null &&
                 shoeData.ReceiptNo is not null)
             {
-                ParcelWriter parcelWriter = new(1140, 720);
-                parcelWriter.WriteParcel(shoeData.ShoeCounts, shoeData.SelectedBrand, shoeData.SelectedQuality, shoeData.Color, shoeData.ReceiptNo);
+                var outDir = Path.Join("output", DateTime.Now.ToString("dd-MM-yyyy-HHmmss"));
+                ShoeWriter.WriteParcelAndBox(outDir, shoeData.ShoeCounts, shoeData.SelectedBrand, shoeData.SelectedQuality, shoeData.Color, shoeData.ReceiptNo);
             }
             else
             {

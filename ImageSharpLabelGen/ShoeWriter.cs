@@ -8,25 +8,37 @@ namespace ImageSharpLabelGen
     /// <summary>
     /// This is a common class that both parcel and box writers use
     /// </summary>
-    public abstract class ShoeWriter(int imageWidth, int imageHeight) : IWriteText
+    public abstract class ShoeWriter : IWriteText
     {
-        public int ImageWidth { get; set; } = imageWidth;
-        public int ImageHeight { get; set; } = imageHeight;
         public SolidBrush TextBrush { get; set; } = Brushes.Solid(Color.Black);
         public SolidBrush BackgroundBrush { get; set; } = Brushes.Solid(Color.White);
-        public Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 50, FontStyle.Bold);
-        public string OutputDirectory = Path.Join("output", DateTime.Now.ToString("dd-MM-yyyy-HHmmss"));
 
-        // making sure each field has the same length so the ':' symbol always stays at the same place between lines
-        public string QualityText { get; } = "KALİTE".PadRight(14, ' ');
-        public string ColorText { get; } = "RENK".PadRight(15, ' ');
+        public abstract Font BrandFont { get; set; }
+        public abstract Font BodyFont { get; set; }
+
+        public class BrandText : ImageSharpText
+        {
+            public BrandText(Font font, string text) : base(font, text)
+            {
+                HorizontalAlignment = HorizontalAlignment.Center;
+                TextDecorations = TextDecorations.Underline;
+            }
+        }
+
+        public class GroupText : ImageSharpText
+        {
+            public GroupText(Font font, string text) : base(font, text)
+            {
+                HorizontalAlignment = HorizontalAlignment.Center;
+                LineSpacing = 2F;
+            }
+        }
 
         /// <summary>
         /// Converts an int only shoe counts list to a "shoe number : shoe count KeyValuePair"
         /// <br/>Starts from 38 to 45
         /// </summary>
         /// <param name="countList">Int based shoe counts list</param>
-        /// <returns></returns>
         public static List<KeyValuePair<string, string>> ShoeListToKeyValuePairList(ObservableCollection<int> countList)
         {
             List<KeyValuePair<string, string>> keyValuePairs = [];
@@ -36,7 +48,7 @@ namespace ImageSharpLabelGen
             int total = 0;
             foreach (int item in countList)
             {
-                // the list that we receive from the ui has zero values in it, skip them
+                // if the current shoe number has 0 count, don't write it
                 if (item == 0)
                 {
                     currentShoeNumber++;
@@ -51,8 +63,26 @@ namespace ImageSharpLabelGen
                 currentShoeNumber++;
             }
 
+            // total is written on parcel labels
             keyValuePairs.Add(new KeyValuePair<string, string>("TOTAL", total.ToString()));
             return keyValuePairs;
+        }
+
+        /// <summary>
+        /// Adds padding from start of the input
+        /// </summary>
+        public static string PadInput(string input, int chars) => input.PadLeft(input.Length + chars, ' ');
+
+        /// <summary>
+        /// Creates both parcel and box labels
+        /// </summary>
+        public static void WriteParcelAndBox(string outDir, ObservableCollection<int> shoeCounts, string brand, string quality, string color, string receiptNo)
+        {
+            ParcelWriter parcelWriter = new(outDir);
+            parcelWriter.WriteParcel(shoeCounts, brand, quality, color, receiptNo);
+
+            BoxWriter boxWriter = new(outDir);
+            boxWriter.WriteBox(shoeCounts, brand, quality, color);
         }
     }
 }
