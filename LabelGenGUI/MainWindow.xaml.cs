@@ -13,19 +13,6 @@ namespace LabelGenGUI
         {
             InitializeComponent();
             DataContext = shoeData;
-
-            // update total shoe count on shoe count input changes
-            shoeData.ShoeCounts.CollectionChanged += (sender, e) => CalculateTotal();
-        }
-
-        private void CalculateTotal()
-        {
-            int total = 0;
-            foreach (var shoe in shoeData.ShoeCounts)
-            {
-                total += shoe;
-            }
-            shoeData.Total = total;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

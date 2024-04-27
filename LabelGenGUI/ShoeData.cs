@@ -51,5 +51,19 @@ namespace LabelGenGUI
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public ShoeData()
+        {
+            // update total shoe count on shoe count input changes
+            ShoeCounts.CollectionChanged += (_, _) =>
+            {
+                int total = 0;
+                foreach (var count in ShoeCounts)
+                {
+                    total += count;
+                }
+                Total = total;
+            };
+        }
     }
 }
