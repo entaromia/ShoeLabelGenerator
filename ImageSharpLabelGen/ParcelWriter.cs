@@ -13,6 +13,8 @@ namespace ImageSharpLabelGen
     /// </summary>
     public class ParcelWriter(string outputDir) : ShoeWriter
     {
+        private readonly string parcelDir = Path.Combine(outputDir, "koli");
+
         private const int imageWidth = 1140;
         private const int imageHeight = 720;
 
@@ -31,6 +33,8 @@ namespace ImageSharpLabelGen
 
         public void WriteParcel(ObservableCollection<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
+            var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+
             var qualityInput = PadInput(quality, 5);
             var colorInput = PadInput(color, 5);
             var receiptNoInput = PadInput(receiptNo, 5);
@@ -53,7 +57,7 @@ namespace ImageSharpLabelGen
                 TextAlignment = TextAlignment.Center
             };
 
-            Directory.CreateDirectory(outputDir);
+            Directory.CreateDirectory(parcelDir);
 
             using var image = new Image<Rgba32>(imageWidth, imageHeight);
             image.Mutate(x =>
@@ -62,7 +66,7 @@ namespace ImageSharpLabelGen
             .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
             .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
 
-            image.SaveAsPng(Path.Combine(outputDir, "koli.png"));
+            image.SaveAsPng(Path.Combine(parcelDir, $"{date}-{receiptNo}.png"));
         }
     }
 }

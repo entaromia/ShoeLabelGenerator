@@ -36,8 +36,7 @@ namespace LabelGenGUI
                 shoeData.Color is not null &&
                 shoeData.ReceiptNo is not null)
             {
-                var outDir = Path.Join("output", DateTime.Now.ToString("dd-MM-yyyy-HHmmss"));
-                ShoeWriter.WriteParcelAndBox(outDir, shoeData.ShoeCounts, shoeData.SelectedBrand, shoeData.SelectedQuality, shoeData.Color, shoeData.ReceiptNo);
+                ShoeWriter.WriteParcelAndBox("output", shoeData.ShoeCounts, shoeData.SelectedBrand, shoeData.SelectedQuality, shoeData.Color, shoeData.ReceiptNo);
             }
             else
             {

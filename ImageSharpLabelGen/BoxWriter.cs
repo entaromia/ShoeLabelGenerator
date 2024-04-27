@@ -13,6 +13,8 @@ namespace ImageSharpLabelGen
     /// </summary>
     public class BoxWriter(string outputDir) : ShoeWriter
     {
+        private readonly string boxDir = Path.Combine(outputDir, "kutu");
+
         private const int imageWidth = 500;
         private const int imageHeight = 400;
 
@@ -31,13 +33,15 @@ namespace ImageSharpLabelGen
 
         public void WriteBox(ObservableCollection<int> shoeCounts, string brand, string quality, string color)
         {
+            var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+
             var qualityInput = PadInput(quality, 3);
             var colorInput = PadInput(color, 3);
             var shoeList = ShoeListToKeyValuePairList(shoeCounts);
 
             var brandText = new BrandText(BrandFont, brand) { Location = brandTextLocation };
 
-            Directory.CreateDirectory(outputDir);
+            Directory.CreateDirectory(boxDir);
 
             // Generate seperate labels for every single pair
             foreach (var shoe in shoeList)
@@ -66,7 +70,7 @@ namespace ImageSharpLabelGen
                 // if there is 3 42 shoes for example, we want to save 3 of the exact same picture
                 for (int i = 0; i < Convert.ToInt32(shoe.Value); i++)
                 {
-                    image.SaveAsPng(Path.Combine(outputDir, $"{shoe.Key}-{i + 1}.png"));
+                    image.SaveAsPng(Path.Combine(boxDir, $"{date}-{shoe.Key}-{i + 1}.png"));
                 }
             }
         }
