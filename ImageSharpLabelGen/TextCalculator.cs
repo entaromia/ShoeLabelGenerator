@@ -16,12 +16,10 @@ namespace ImageSharpLabelGen
         public static float TotalPairTextLength(List<KeyValuePair<string, string>> keyValuePairs, RichTextOptions textOptions, float padding = 0)
         {
             var width = 0F;
-            float textLength;
-
             foreach (var pair in keyValuePairs)
             {
                 var text = JoinKeyValuePair(pair);
-                textLength = TextMeasurer.MeasureBounds(text, textOptions).Width;
+                float textLength = TextMeasurer.MeasureBounds(text, textOptions).Width;
 
                 // don't add a padding if this is the first string we are iterating
                 width += width == 0 ? textLength : textLength + padding;

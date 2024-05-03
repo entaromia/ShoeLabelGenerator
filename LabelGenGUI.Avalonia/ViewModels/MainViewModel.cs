@@ -8,6 +8,8 @@ namespace LabelGenGUI.Avalonia.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
+    private readonly ParcelAndBoxHelper parcelBoxHelper;
+
     private int total;
     public int Total
     {
@@ -22,16 +24,16 @@ public partial class MainViewModel : ViewModelBase
     // User selection of the brand
     public string[] Brands { get; } = [
         "RIDGE",
-            "GERONIMO"
+        "GERONIMO"
         ];
     public string? SelectedBrand { get; set; }
 
     // User selection of different qualities
     public string[] Qualities { get; } = [
         "SRC 01",
-            "SRC 02",
-            "LFR 01",
-            "LFR 02"
+        "SRC 02",
+        "LFR 01",
+        "LFR 02"
         ];
 
     public string? SelectedQuality { get; set; }
@@ -45,6 +47,8 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
+        parcelBoxHelper = new ParcelAndBoxHelper("output");
+
         // update total shoe count on shoe count input changes
         ShoeCounts.CollectionChanged += (_, _) =>
         {
@@ -64,16 +68,15 @@ public partial class MainViewModel : ViewModelBase
                Color is not null &&
                ReceiptNo is not null)
         {
-            ShoeWriter.WriteParcelAndBox("output", ShoeCounts, SelectedBrand, SelectedQuality, Color, ReceiptNo);
+            parcelBoxHelper.WriteParcelAndBox(ShoeCounts, SelectedBrand, SelectedQuality, Color, ReceiptNo);
         }
         else
         {
             ArgumentNullException.ThrowIfNull(App.Current);
-            ErrorWindow errorWindow = new();
             if (App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 ArgumentNullException.ThrowIfNull(desktop.MainWindow);
-                errorWindow.ShowDialog(desktop.MainWindow);
+                new ErrorWindow().ShowDialog(desktop.MainWindow);
             }
         }
     }

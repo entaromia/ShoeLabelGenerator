@@ -72,17 +72,5 @@ namespace ImageSharpLabelGen
         /// Adds padding from start of the input
         /// </summary>
         public static string PadInput(string input, int chars) => input.PadLeft(input.Length + chars, ' ');
-
-        /// <summary>
-        /// Creates both parcel and box labels
-        /// </summary>
-        public static void WriteParcelAndBox(string outDir, ObservableCollection<int> shoeCounts, string brand, string quality, string color, string receiptNo)
-        {
-            ParcelWriter parcelWriter = new(outDir);
-            parcelWriter.WriteParcel(shoeCounts, brand, quality, color, receiptNo);
-
-            BoxWriter boxWriter = new(outDir);
-            boxWriter.WriteBox(shoeCounts, brand, quality, color);
-        }
     }
 }
