@@ -18,9 +18,14 @@
       <Style Selector="TextBlock">
         <Setter Property="FontWeight" Value="DemiBold"/>
       </Style>
+      <Style Selector="NumericUpDown">
+        <Setter Property="ShowButtonSpinner" Value="False" />
+        <Setter Property="AllowSpin" Value="False" />
+        <Setter Property="FontSize" Value="16" />
+      </Style>
     </Grid.Styles>
     <Grid.Resources>
-      <cv:EmptyToIntConverter x:Key="EmptyToIntConverter" />
+      <cv:EmptyToZeroConverter x:Key="EmptyToZeroConverter" />
     </Grid.Resources>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -50,37 +55,37 @@
     <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="38" />
-        <TextBox Text="{Binding ShoeCounts[0], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[0], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="39" />
-        <TextBox Text="{Binding ShoeCounts[1], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[1], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="40" />
-        <TextBox Text="{Binding ShoeCounts[2], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[2], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="41" />
-        <TextBox Text="{Binding ShoeCounts[3], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[3], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
     </StackPanel>
     <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="42" />
-        <TextBox Text="{Binding ShoeCounts[4], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[4], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="43" />
-        <TextBox Text="{Binding ShoeCounts[5], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[5], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="44" />
-        <TextBox Text="{Binding ShoeCounts[6], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[6], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
       <StackPanel Margin="8,5" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
         <TextBlock TextAlignment="Center" FontSize="16" Text="45" />
-        <TextBox Text="{Binding ShoeCounts[7], Converter={StaticResource EmptyToIntConverter}}" FontSize="16" Width="35"/>
+        <NumericUpDown Value="{Binding ShoeCounts[7], Converter={StaticResource EmptyToZeroConverter}}" Width="35"/>
       </StackPanel>
     </StackPanel>
     <StackPanel Grid.Row="6" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
