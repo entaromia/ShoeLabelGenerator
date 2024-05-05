@@ -8,7 +8,8 @@
         Title="Hata" 
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterOwner"
-        x:DataType="vm:ErrorViewModel">
+        x:DataType="vm:ErrorViewModel"
+        CanResize="False">
   <StackPanel VerticalAlignment="Center" Margin="20">
     <TextBlock Text="{Binding Message}" Padding="0,0,0,10" />
     <Button Content="Tamam" HorizontalAlignment="Right" Click="CloseButton_Click"/>
