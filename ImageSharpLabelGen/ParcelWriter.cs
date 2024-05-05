@@ -32,7 +32,7 @@ namespace ImageSharpLabelGen
 
         public void WriteParcel(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
-            var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
+            var date = DateTime.Now.Ticks;
 
             var qualityInput = PadInput(quality, 5);
             var colorInput = PadInput(color, 5);
@@ -65,7 +65,7 @@ namespace ImageSharpLabelGen
             .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
             .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
 
-            image.SaveAsPng(Path.Combine(parcelDir, $"{date}-{receiptNo}.png"));
+            image.SaveAsPng(Path.Combine(parcelDir, $"{brand}-{date}.png"));
         }
     }
 }

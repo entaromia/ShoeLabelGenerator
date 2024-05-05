@@ -1,4 +1,4 @@
-namespace ImageSharpLabelGen
+﻿namespace ImageSharpLabelGen
 {
     public class ParcelAndBoxHelper(string outDir)
     {
