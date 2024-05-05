@@ -2,13 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Width="300" Height="100"
+        xmlns:vm="clr-namespace:LabelGenGUI.Avalonia.ViewModels"
+        mc:Ignorable="d" Height="100" SizeToContent="Width"
         x:Class="LabelGenGUI.Avalonia.Views.ErrorWindow"
         Title="Hata" 
         Icon="/Assets/avalonia-logo.ico"
-        WindowStartupLocation="CenterOwner">
+        WindowStartupLocation="CenterOwner"
+        x:DataType="vm:ErrorViewModel">
   <StackPanel VerticalAlignment="Center" Margin="20">
-    <TextBlock Text="Lütfen gereken tüm bölümleri doldurun!" Padding="0,0,0,10" />
+    <TextBlock Text="{Binding Message}" Padding="0,0,0,10" />
     <Button Content="Tamam" HorizontalAlignment="Right" Click="CloseButton_Click"/>
   </StackPanel>
 </Window>

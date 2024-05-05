@@ -1,6 +1,4 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
-using ImageSharpLabelGen;
-using LabelGenGUI.Avalonia.Views;
+﻿using ImageSharpLabelGen;
 using System;
 using System.Collections.ObjectModel;
 
@@ -63,21 +61,17 @@ public partial class MainViewModel : ViewModelBase
 
     public void WriteBoxAndParcel()
     {
-        if (SelectedBrand is not null &&
-               SelectedQuality is not null &&
-               Color is not null &&
-               ReceiptNo is not null)
+        try
         {
             parcelBoxHelper.WriteParcelAndBox(ShoeCounts, SelectedBrand, SelectedQuality, Color, ReceiptNo);
         }
-        else
+        catch (ArgumentNullException ex)
         {
-            ArgumentNullException.ThrowIfNull(App.Current);
-            if (App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                ArgumentNullException.ThrowIfNull(desktop.MainWindow);
-                new ErrorWindow().ShowDialog(desktop.MainWindow);
-            }
+            ShowDialog(ex);
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            ShowDialog(ex);
         }
     }
 }
