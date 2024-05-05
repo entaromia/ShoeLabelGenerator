@@ -1,7 +1,6 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
-using System.Collections.ObjectModel;
 
 namespace ImageSharpLabelGen
 {
@@ -39,7 +38,7 @@ namespace ImageSharpLabelGen
         /// <br/>Starts from 38 to 45
         /// </summary>
         /// <param name="countList">Int based shoe counts list</param>
-        public static List<KeyValuePair<string, string>> ShoeListToKeyValuePairList(ObservableCollection<int> countList)
+        public static List<KeyValuePair<string, string>> ShoeListToKeyValuePairList(IEnumerable<int> countList)
         {
             List<KeyValuePair<string, string>> keyValuePairs = [];
 

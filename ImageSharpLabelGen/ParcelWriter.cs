@@ -3,7 +3,6 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using System.Collections.ObjectModel;
 
 namespace ImageSharpLabelGen
 {
@@ -31,7 +30,7 @@ namespace ImageSharpLabelGen
         private readonly PointF brandTextLocation = new(imageWidth / 2, 40);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 180);
 
-        public void WriteParcel(ObservableCollection<int> shoeCounts, string brand, string quality, string color, string receiptNo)
+        public void WriteParcel(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
             var date = DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss");
 

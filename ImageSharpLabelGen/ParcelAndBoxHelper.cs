@@ -1,5 +1,3 @@
-﻿using System.Collections.ObjectModel;
-
 namespace ImageSharpLabelGen
 {
     public class ParcelAndBoxHelper(string outDir)
@@ -10,7 +8,7 @@ namespace ImageSharpLabelGen
         /// <summary>
         /// Creates both parcel and box labels
         /// </summary>
-        public void WriteParcelAndBox(ObservableCollection<int> shoeCounts, string brand, string quality, string color, string receiptNo)
+        public void WriteParcelAndBox(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
             parcelWriter.WriteParcel(shoeCounts, brand, quality, color, receiptNo);
             boxWriter.WriteBox(shoeCounts, brand, quality, color);
