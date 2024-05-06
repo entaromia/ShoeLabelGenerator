@@ -92,7 +92,10 @@ public partial class MainViewModel : ViewModelBase
             var file = await GetSaveFolderAsync();
             if (file is null)
             {
-                ShowDialog(ErrorMessage.FolderNotPicked);
+                if (parcelBoxHelper.OutputFolder is null)
+                {
+                    ShowDialog(ErrorMessage.FolderNotPicked);
+                }
                 return;
             }
             parcelBoxHelper.OutputFolder = file.Path.AbsolutePath;
