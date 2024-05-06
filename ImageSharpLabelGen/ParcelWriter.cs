@@ -28,7 +28,7 @@ namespace ImageSharpLabelGen
         private readonly PointF brandTextLocation = new(imageWidth / 2, 40);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 180);
 
-        public void WriteParcel(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
+        public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string parcelDir = Path.Combine(OutputFolder, "koli");

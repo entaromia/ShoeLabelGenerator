@@ -28,7 +28,7 @@ namespace ImageSharpLabelGen
         private readonly PointF brandTextLocation = new(imageWidth / 2, 40);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 110);
 
-        public void WriteBox(IEnumerable<int> shoeCounts, string brand, string quality, string color)
+        public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string boxDir = Path.Combine(OutputFolder, "kutu");

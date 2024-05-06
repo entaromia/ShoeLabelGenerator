@@ -42,14 +42,14 @@
                 var lists = ShoeCountDivider.DivideShoeList(shoeCounts);
                 foreach (var list in lists)
                 {
-                    parcelWriter.WriteParcel(list, brand, quality, color, receiptNo);
-                    boxWriter.WriteBox(list, brand, quality, color);
+                    parcelWriter.Write(list, brand, quality, color, receiptNo);
+                    boxWriter.Write(list, brand, quality, color);
                 }
             }
             else
             {
-                parcelWriter.WriteParcel(shoeCounts, brand, quality, color, receiptNo);
-                boxWriter.WriteBox(shoeCounts, brand, quality, color);
+                parcelWriter.Write(shoeCounts, brand, quality, color, receiptNo);
+                boxWriter.Write(shoeCounts, brand, quality, color);
             }
         }
     }
