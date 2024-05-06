@@ -10,10 +10,8 @@ namespace ImageSharpLabelGen
     /// This class writes the big parcel labels
     /// Size: 10x15
     /// </summary>
-    public class ParcelWriter(string outputDir) : ShoeWriter
+    public class ParcelWriter : ShoeWriter
     {
-        private readonly string parcelDir = Path.Combine(outputDir, "koli");
-
         private const int imageWidth = 1140;
         private const int imageHeight = 720;
 
@@ -32,6 +30,9 @@ namespace ImageSharpLabelGen
 
         public void WriteParcel(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
+            ArgumentNullException.ThrowIfNull(OutputFolder);
+            string parcelDir = Path.Combine(OutputFolder, "koli");
+
             var date = DateTime.Now.Ticks;
 
             var qualityInput = PadInput(quality, 5);
@@ -60,10 +61,10 @@ namespace ImageSharpLabelGen
 
             using var image = new Image<Rgba32>(imageWidth, imageHeight);
             image.Mutate(x =>
-            x.Fill(BackgroundBrush)
-            .DrawText(brandText.TextOptions, brandText.Text, TextBrush)
-            .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
-            .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
+                x.Fill(BackgroundBrush)
+                .DrawText(brandText.TextOptions, brandText.Text, TextBrush)
+                .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
+                .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
 
             image.SaveAsPng(Path.Combine(parcelDir, $"{brand}-{date}.png"));
         }

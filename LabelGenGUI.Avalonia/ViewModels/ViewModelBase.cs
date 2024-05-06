@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls.ApplicationLifetimes;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using LabelGenGUI.Avalonia.Views;
 using System;
 using System.ComponentModel;
@@ -15,17 +16,22 @@ public class ViewModelBase : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    protected static void ShowDialog(Exception ex)
+    protected static void ShowDialog(ErrorMessage err)
     {
-        ArgumentNullException.ThrowIfNull(App.Current);
-
-        if (App.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        if (Application.Current is not { } app || app.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop 
+            || desktop.MainWindow is not { } window)
+            throw new NullReferenceException();
+        new ErrorWindow()
         {
-            ArgumentNullException.ThrowIfNull(desktop.MainWindow);
-            new ErrorWindow()
-            {
-                DataContext = new ErrorViewModel(ex)
-            }.ShowDialog(desktop.MainWindow);
-        }
+            DataContext = new ErrorViewModel(err)
+        }.ShowDialog(window);
+    }
+
+    public enum ErrorMessage
+    {
+        EmptyInputFields,
+        DividingNotSupported,
+        FolderNotPicked,
+        Undefined
     }
 }

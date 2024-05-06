@@ -1,6 +1,11 @@
-﻿using ImageSharpLabelGen;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
+using ImageSharpLabelGen;
 using System;
 using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace LabelGenGUI.Avalonia.ViewModels;
 
@@ -45,7 +50,7 @@ public partial class MainViewModel : ViewModelBase
 
     public MainViewModel()
     {
-        parcelBoxHelper = new ParcelAndBoxHelper("output");
+        parcelBoxHelper = new ParcelAndBoxHelper();
 
         // update total shoe count on shoe count input changes
         ShoeCounts.CollectionChanged += (_, _) =>
@@ -61,17 +66,56 @@ public partial class MainViewModel : ViewModelBase
 
     public void WriteBoxAndParcel()
     {
+        if (parcelBoxHelper.OutputFolder is null)
+        {
+            ShowDialog(ErrorMessage.FolderNotPicked);
+            return;
+        }
         try
         {
             parcelBoxHelper.WriteParcelAndBox(ShoeCounts, SelectedBrand, SelectedQuality, Color, ReceiptNo);
         }
-        catch (ArgumentNullException ex)
+        catch (ArgumentNullException)
         {
-            ShowDialog(ex);
+            ShowDialog(ErrorMessage.EmptyInputFields);
         }
-        catch (ArgumentOutOfRangeException ex)
+        catch (ArgumentOutOfRangeException)
         {
-            ShowDialog(ex);
+            ShowDialog(ErrorMessage.DividingNotSupported);
+        }
+    }
+
+    public async Task SelectFolder()
+    {
+        try
+        {
+            var file = await GetSaveFolderAsync();
+            if (file is null)
+            {
+                ShowDialog(ErrorMessage.FolderNotPicked);
+                return;
+            }
+            parcelBoxHelper.OutputFolder = file.Path.AbsolutePath;
+        }
+        catch
+        {
+            ShowDialog(ErrorMessage.Undefined);
+        }
+    }
+
+    private static async Task<IStorageFolder?> GetSaveFolderAsync()
+    {
+        if (Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop ||
+            desktop.MainWindow?.StorageProvider is not { } provider)
+            throw new NullReferenceException("Missing StorageProvider instance.");
+        if (provider.CanPickFolder)
+        {
+            var folders = await provider.OpenFolderPickerAsync(new FolderPickerOpenOptions() { Title = "Çıktı yerini seçin" });
+            return folders?.Count >= 1 ? folders[0] : null;
+        }
+        else
+        {
+            throw new PlatformNotSupportedException("Folder picking is not supported on: " + RuntimeInformation.OSDescription);
         }
     }
 }

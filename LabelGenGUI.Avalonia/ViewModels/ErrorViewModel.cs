@@ -1,24 +1,13 @@
-﻿using System;
-
-namespace LabelGenGUI.Avalonia.ViewModels
+﻿namespace LabelGenGUI.Avalonia.ViewModels
 {
-    public partial class ErrorViewModel : ViewModelBase
+    public partial class ErrorViewModel(ViewModelBase.ErrorMessage err) : ViewModelBase
     {
-        public string Message { get; set; } = "To be replaced with actual message";
-        public ErrorViewModel(Exception ex)
+        public string Message { get; set; } = err switch
         {
-            if (ex is ArgumentNullException)
-            {
-                Message = "Lütfen gereken tüm alanları doldurun.";
-            }
-            else if (ex is ArgumentOutOfRangeException)
-            {
-                Message = "18'li, 22'li veya 24'ten büyük koliler şuan desteklenmiyor.";
-            }
-            else
-            {
-                Message = ex.Message;
-            }
-        }
+            ErrorMessage.EmptyInputFields => "Lütfen gereken tüm alanları doldurun.",
+            ErrorMessage.DividingNotSupported => "18'li, 22'li veya 24'ten büyük koliler şuan desteklenmiyor.",
+            ErrorMessage.FolderNotPicked => "Lütfen bir klasör seçin.",
+            _ => "Invalid error occured",
+        };
     }
 }

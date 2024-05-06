@@ -9,6 +9,7 @@ namespace ImageSharpLabelGen
     /// </summary>
     public abstract class ShoeWriter : IWriteText
     {
+        public string? OutputFolder { get; set; }
         public SolidBrush TextBrush { get; set; } = Brushes.Solid(Color.Black);
         public SolidBrush BackgroundBrush { get; set; } = Brushes.Solid(Color.White);
 

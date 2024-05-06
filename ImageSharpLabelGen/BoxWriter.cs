@@ -10,10 +10,8 @@ namespace ImageSharpLabelGen
     /// This class writes small box labels
     /// Size: 4x6
     /// </summary>
-    public class BoxWriter(string outputDir) : ShoeWriter
+    public class BoxWriter : ShoeWriter
     {
-        private readonly string boxDir = Path.Combine(outputDir, "kutu");
-
         private const int imageWidth = 500;
         private const int imageHeight = 400;
 
@@ -32,6 +30,9 @@ namespace ImageSharpLabelGen
 
         public void WriteBox(IEnumerable<int> shoeCounts, string brand, string quality, string color)
         {
+            ArgumentNullException.ThrowIfNull(OutputFolder);
+            string boxDir = Path.Combine(OutputFolder, "kutu");
+
             var date = DateTime.Now.Ticks;
 
             var qualityInput = PadInput(quality, 3);

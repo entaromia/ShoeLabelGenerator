@@ -1,9 +1,19 @@
 ﻿namespace ImageSharpLabelGen
 {
-    public class ParcelAndBoxHelper(string outDir)
+    public class ParcelAndBoxHelper
     {
-        private readonly ParcelWriter parcelWriter = new(outDir);
-        private readonly BoxWriter boxWriter = new(outDir);
+        private readonly ParcelWriter parcelWriter = new();
+        private readonly BoxWriter boxWriter = new();
+
+        public string? OutputFolder
+        {
+            get => parcelWriter.OutputFolder;
+            set
+            {
+                parcelWriter.OutputFolder = value;
+                boxWriter.OutputFolder = value;
+            }
+        }
 
         /// <summary>
         /// Creates both parcel and box labels
