@@ -30,14 +30,15 @@
             }
 
             int sum = shoeCounts.Sum();
-            if (sum == 18 || sum == 22 || sum > 24)
+            if (sum == 18 || sum == 22)
             {
                 throw new ArgumentOutOfRangeException(nameof(shoeCounts), "Dividing these inputs are not supported yet");
             }
 
             // The maximum parcel size we have is 12
             // divide into two parcels if more than that
-            if (sum > 12)
+            // If it's more than what we support, pass it directly without dividing
+            if (sum > 12 && sum < 24)
             {
                 var lists = ShoeCountDivider.DivideShoeList(shoeCounts);
                 foreach (var list in lists)
