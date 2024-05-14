@@ -30,7 +30,6 @@ public class ViewModelBase : INotifyPropertyChanged
     public enum ErrorMessage
     {
         EmptyInputFields,
-        DividingNotSupported,
         FolderNotPicked,
         Undefined
     }

@@ -30,10 +30,6 @@
             }
 
             int sum = shoeCounts.Sum();
-            if (sum == 18 || sum == 22)
-            {
-                throw new ArgumentOutOfRangeException(nameof(shoeCounts), "Dividing these inputs are not supported yet");
-            }
 
             // The maximum parcel size we have is 12
             // divide into two parcels if more than that

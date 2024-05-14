@@ -79,9 +79,9 @@ public partial class MainViewModel : ViewModelBase
         {
             ShowDialog(ErrorMessage.EmptyInputFields);
         }
-        catch (ArgumentOutOfRangeException)
+        catch
         {
-            ShowDialog(ErrorMessage.DividingNotSupported);
+            ShowDialog(ErrorMessage.Undefined);
         }
     }
 
