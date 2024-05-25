@@ -4,7 +4,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 
-namespace ImageSharpLabelGen
+namespace ImageSharpLabelGen.Writers
 {
     /// <summary>
     /// This class writes small box labels

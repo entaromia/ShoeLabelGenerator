@@ -1,10 +1,11 @@
-﻿using SixLabors.Fonts;
+﻿using ImageSharpLabelGen.Helpers;
+using SixLabors.Fonts;
 using SixLabors.Fonts.Unicode;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.Processing;
 
-namespace ImageSharpLabelGen
+namespace ImageSharpLabelGen.Writers
 {
     static class KeyValuePairListWriter
     {

@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
-using ImageSharpLabelGen;
+using ImageSharpLabelGen.Helpers;
 using System;
 using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;

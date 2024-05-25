@@ -1,4 +1,6 @@
-﻿namespace ImageSharpLabelGen
+﻿using ImageSharpLabelGen.Writers;
+
+namespace ImageSharpLabelGen.Helpers
 {
     public class ParcelAndBoxHelper
     {

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace ImageSharpLabelGen
+namespace ImageSharpLabelGen.Helpers
 {
     public static class ShoeCountDivider
     {

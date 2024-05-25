@@ -2,7 +2,7 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 
-namespace ImageSharpLabelGen
+namespace ImageSharpLabelGen.Writers
 {
     /// <summary>
     /// This is a common class that both parcel and box writers use

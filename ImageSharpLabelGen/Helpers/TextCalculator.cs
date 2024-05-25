@@ -1,7 +1,7 @@
 ﻿using SixLabors.Fonts;
 using SixLabors.ImageSharp.Drawing.Processing;
 
-namespace ImageSharpLabelGen
+namespace ImageSharpLabelGen.Helpers
 {
     static class TextCalculator
     {
