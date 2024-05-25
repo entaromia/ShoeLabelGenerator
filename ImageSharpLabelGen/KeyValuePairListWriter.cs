@@ -58,7 +58,7 @@ namespace ImageSharpLabelGen
                     currentX += TextMeasurer.MeasureBounds(previousText, textOptions).Width + textPadding;
                 }
 
-                textOptions.Origin = new PointF(currentX, 520);
+                textOptions.Origin = new PointF(currentX, 580);
                 context.DrawText(textOptions, currentText, brush);
             }
             return context;

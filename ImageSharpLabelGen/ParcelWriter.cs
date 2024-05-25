@@ -12,8 +12,8 @@ namespace ImageSharpLabelGen
     /// </summary>
     public class ParcelWriter : ShoeWriter
     {
-        private const int imageWidth = 1140;
-        private const int imageHeight = 720;
+        private const int imageWidth = 1198; // 15cm in 203dpi
+        private const int imageHeight = 799; // 10cm in 203dpi
 
         // We just want a larger text for the brand name, same for everything else
         public override Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 50, FontStyle.Bold);
@@ -25,8 +25,8 @@ namespace ImageSharpLabelGen
         private readonly string shoeNoText = "FİŞ NO".PadRight(15, ' ');
 
         // half of the image x for centering text vertically
-        private readonly PointF brandTextLocation = new(imageWidth / 2, 40);
-        private readonly PointF groupTextLocation = new(imageWidth / 2, 180);
+        private readonly PointF brandTextLocation = new(imageWidth / 2, 60);
+        private readonly PointF groupTextLocation = new(imageWidth / 2, 220);
 
         public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
         {
@@ -59,7 +59,7 @@ namespace ImageSharpLabelGen
 
             Directory.CreateDirectory(parcelDir);
 
-            using var image = new Image<Rgba32>(imageWidth, imageHeight);
+            using var image = new Image<L8>(imageWidth, imageHeight);
             image.Mutate(x =>
                 x.Fill(BackgroundBrush)
                 .DrawText(brandText.TextOptions, brandText.Text, TextBrush)

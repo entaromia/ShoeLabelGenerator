@@ -12,8 +12,8 @@ namespace ImageSharpLabelGen
     /// </summary>
     public class BoxWriter : ShoeWriter
     {
-        private const int imageWidth = 500;
-        private const int imageHeight = 400;
+        private const int imageWidth = 479; // 6cm in 203dpi
+        private const int imageHeight = 319; // 4cm in 203dpi
 
         // We just want a larger text for the brand name, same for everything else
         public override Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 35, FontStyle.Bold);
@@ -25,8 +25,8 @@ namespace ImageSharpLabelGen
         private readonly string shoeNoText = "NO".PadRight(12, ' ');
 
         // half of the image x for centering text vertically
-        private readonly PointF brandTextLocation = new(imageWidth / 2, 40);
-        private readonly PointF groupTextLocation = new(imageWidth / 2, 110);
+        private readonly PointF brandTextLocation = new(imageWidth / 2, 30);
+        private readonly PointF groupTextLocation = new(imageWidth / 2, 95);
 
         public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color)
         {
@@ -43,6 +43,14 @@ namespace ImageSharpLabelGen
 
             Directory.CreateDirectory(boxDir);
 
+            // As use all the available label area, use smaller font size for long colors
+            if (color.Length >= 12)
+            {
+                // Use even smaller font for longer color names
+                // Helps scaling color input like 'HAKİ FLOTTER' or 'KOYU GRİ SÜET' properly
+                BodyFont = new Font(BodyFont, color.Length >= 13 ? 32 : 33);
+            }
+
             // Generate seperate labels for every single pair
             foreach (var shoe in shoeList)
             {
@@ -58,9 +66,9 @@ namespace ImageSharpLabelGen
                 // shoe key is the shoe number
                 var group = $"{qualityText}:{qualityInput}\n{colorText}:{colorInput}\n{shoeNoText}:{PadInput(shoe.Key, 2)}";
 
-                var groupText = new GroupText(BodyFont, group) { Location = groupTextLocation, LineSpacing = 2.4F };
+                var groupText = new GroupText(BodyFont, group) { Location = groupTextLocation, LineSpacing = 2F };
 
-                using var image = new Image<Rgba32>(imageWidth, imageHeight);
+                using var image = new Image<L8>(imageWidth, imageHeight);
                 image.Mutate(x =>
                 x.Fill(BackgroundBrush)
                 .DrawText(brandText.TextOptions, brandText.Text, TextBrush).
