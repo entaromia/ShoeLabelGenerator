@@ -1,6 +1,6 @@
 ﻿using Avalonia.Controls;
 
-namespace LabelGenGUI.Avalonia.Views;
+namespace LabelGenGUI.Views;
 
 public partial class MainWindow : Window
 {

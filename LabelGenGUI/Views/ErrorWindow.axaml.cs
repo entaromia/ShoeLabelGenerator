@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace LabelGenGUI.Avalonia.Views
+namespace LabelGenGUI.Views
 {
     public partial class ErrorWindow : Window
     {

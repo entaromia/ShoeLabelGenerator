@@ -2,7 +2,7 @@
 using System;
 using System.Globalization;
 
-namespace LabelGenGUI.Avalonia.Converters
+namespace LabelGenGUI.Converters
 {
     /// <summary>
     /// Converts empty inputs to zero

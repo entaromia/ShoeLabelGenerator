@@ -1,11 +1,12 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using LabelGenGUI.Avalonia.Views;
+using LabelGenGUI.Views;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace LabelGenGUI.Avalonia.ViewModels;
+namespace LabelGenGUI.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {
@@ -16,9 +17,19 @@ public class ViewModelBase : INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
+    public void SetProperty<T>(ref T property, T value, [CallerMemberName] string? propertyName = null)
+    {
+        if (EqualityComparer<T>.Default.Equals(property, value))
+        {
+            return;
+        }
+        property = value;
+        PropertyChangedEvent(propertyName);
+    }
+
     protected static void ShowDialog(ErrorMessage err)
     {
-        if (Application.Current is not { } app || app.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop 
+        if (Application.Current is not { } app || app.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime desktop
             || desktop.MainWindow is not { } window)
             throw new NullReferenceException();
         new ErrorWindow()

@@ -1,12 +1,12 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:LabelGenGUI.Avalonia.ViewModels"
+        xmlns:vm="using:LabelGenGUI.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:LabelGenGUI.Avalonia.Views"
-        mc:Ignorable="d" Width="360" Height="400"
-        x:Class="LabelGenGUI.Avalonia.Views.MainWindow"
+        xmlns:views="clr-namespace:LabelGenGUI.Views"
+        mc:Ignorable="d" SizeToContent="WidthAndHeight"
+        x:Class="LabelGenGUI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="LabelGenGUI.Avalonia" CanResize="False">
+        Title="LabelGenGUI" CanResize="False" WindowStartupLocation="CenterScreen">
         <views:MainView />
 </Window>

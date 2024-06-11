@@ -1,0 +1,35 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
+             xmlns:cv="clr-namespace:LabelGenGUI.Converters"
+             xmlns:views="clr-namespace:LabelGenGUI.Views"
+             mc:Ignorable="d"
+             x:Class="LabelGenGUI.Views.MainView"
+             x:DataType="vm:MainViewModel" MinHeight="400" MinWidth="300">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel/>
+  </Design.DataContext>
+  <StackPanel Orientation="Vertical">
+    <Menu Height="20" Margin="2">
+      <MenuItem Header="_Dosya">
+        <MenuItem Header="Yeni Proje" Command="{Binding NewProject}"/>
+        <MenuItem Header="Proje Aç" Command="{Binding OpenProject}"/>
+        <MenuItem Header="Projeyi Kapat" Command="{Binding CloseProject}"/>
+        <MenuItem Header="-"/>
+        <MenuItem Header="Kaydet" Command="{Binding SaveProject}"/>
+        <MenuItem Header="Resim Olarak Kaydet" Command="{Binding SaveAsPicture}"/>
+        <MenuItem Header="-"/>
+        <MenuItem Header="Yazdır" Command="{Binding Print}"/>
+        <MenuItem Header="Yazıcı Ayarları"/>
+      </MenuItem>
+    </Menu>
+    <TextBlock Margin="0,20,0,0" Text="Dosya menüsünden yeni bir proje oluşturun veya proje seçin." TextWrapping="Wrap" Width="250"
+               TextAlignment="Center" VerticalAlignment="Center"
+               IsVisible="{Binding #MainContentControl.Content, Converter={x:Static ObjectConverters.IsNull}}"/>
+    <ContentControl Name="MainContentControl"/>
+  </StackPanel>
+</UserControl>

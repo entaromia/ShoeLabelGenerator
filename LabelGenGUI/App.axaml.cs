@@ -1,11 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using LabelGenGUI.ViewModels;
+using LabelGenGUI.Views;
 
-using LabelGenGUI.Avalonia.ViewModels;
-using LabelGenGUI.Avalonia.Views;
-
-namespace LabelGenGUI.Avalonia;
+namespace LabelGenGUI;
 
 public partial class App : Application
 {

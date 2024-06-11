@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
+             mc:Ignorable="d"
+             x:Class="LabelGenGUI.Views.ShoeListView" 
+             x:DataType="vm:ShoeListViewModel">
+  <StackPanel Orientation="Vertical">
+    <ListBox Name="ShoeList" SelectionMode="Toggle" ItemsSource="{Binding ListItems}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
+      <ListBox.Styles>
+        <Style Selector="ListBoxItem">
+          <Setter Property="BorderBrush" Value="Black" />
+          <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+      </ListBox.Styles>
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{Binding Brand, StringFormat='Marka: {0},'}" Margin="0,0,5,0"/>
+              <TextBlock Text="{Binding ReceiptNo, StringFormat='Fiş: {0}'}" Margin="0,0,5,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,7,0,0">
+              <TextBlock Text="{Binding Quality, StringFormat='Kalite: {0},'}" Margin="0,0,5,0"/>
+              <TextBlock Text="{Binding Color, StringFormat='Renk: {0},'}" Margin="0,0,5,0"/>
+              <TextBlock Text="{Binding Total, StringFormat='Toplam: {0}'}" Margin="0,0,5,0"/>
+            </StackPanel>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+      <Button VerticalAlignment="Bottom" Content="Ekle" Margin="10" Command="{Binding AddItem}"/>
+      <Button VerticalAlignment="Bottom" Content="Sil" Margin="10" Command="{Binding DeleteItem}" CommandParameter="{Binding ElementName=ShoeList, Path=SelectedIndex}"/>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

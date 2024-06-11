@@ -30,11 +30,23 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ImageSharpLabelGen\ImageSharpLabelGen.csproj" />
+    <ProjectReference Include="..\ShoeLabelGen.Common\ShoeLabelGen.Common.csproj" />
+
   </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Views\ErrorWindow.axaml.cs">
       <DependentUpon>ErrorWindow.axaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\InputView.axaml.cs">
+      <DependentUpon>InputView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ShoeListView.axaml.cs">
+      <DependentUpon>ShoeListView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

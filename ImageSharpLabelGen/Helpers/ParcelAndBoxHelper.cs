@@ -1,4 +1,5 @@
 ﻿using ImageSharpLabelGen.Writers;
+using ShoeLabelGen.Common;
 
 namespace ImageSharpLabelGen.Helpers
 {
@@ -20,35 +21,41 @@ namespace ImageSharpLabelGen.Helpers
         /// <summary>
         /// Creates both parcel and box labels
         /// </summary>
-        public void WriteParcelAndBox(IEnumerable<int> shoeCounts, string? brand, string? quality, string? color, string? receiptNo)
+        public void WriteParcelAndBox(ShoeListItem item)
         {
             // Validate inputs
-            if (string.IsNullOrEmpty(brand) ||
-               string.IsNullOrEmpty(quality) ||
-               string.IsNullOrEmpty(color) ||
-               string.IsNullOrEmpty(receiptNo))
+            if (item.Brand is null ||
+               item.Quality is null ||
+               string.IsNullOrEmpty(item.Color) ||
+               string.IsNullOrEmpty(item.ReceiptNo))
             {
-                throw new ArgumentNullException(nameof(brand), "The required inputs cannot be empty");
+                throw new ArgumentNullException(nameof(item), "Required inputs cannot be empty");
             }
-
-            int sum = shoeCounts.Sum();
 
             // The maximum parcel size we have is 12
             // divide into two parcels if more than that
             // If it's more than what we support, pass it directly without dividing
-            if (sum > 12 && sum < 24)
+            if (item.Total > 12 && item.Total < 24)
             {
-                var lists = ShoeCountDivider.DivideShoeList(shoeCounts);
+                var lists = ShoeCountDivider.DivideShoeList(item.ShoeCounts);
                 foreach (var list in lists)
                 {
-                    parcelWriter.Write(list, brand, quality, color, receiptNo);
-                    boxWriter.Write(list, brand, quality, color);
+                    parcelWriter.Write(list, item.Brand, item.Quality, item.Color, item.ReceiptNo);
+                    boxWriter.Write(list, item.Brand, item.Quality, item.Color);
                 }
             }
             else
             {
-                parcelWriter.Write(shoeCounts, brand, quality, color, receiptNo);
-                boxWriter.Write(shoeCounts, brand, quality, color);
+                parcelWriter.Write(item.ShoeCounts, item.Brand, item.Quality, item.Color, item.ReceiptNo);
+                boxWriter.Write(item.ShoeCounts, item.Brand, item.Quality, item.Color);
+            }
+        }
+
+        public void WriteParcelAndBox(IEnumerable<ShoeListItem> items)
+        {
+            foreach (var item in items)
+            {
+                WriteParcelAndBox(item);
             }
         }
     }

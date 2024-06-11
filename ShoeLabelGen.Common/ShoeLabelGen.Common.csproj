@@ -5,10 +5,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.3" />
-    <ProjectReference Include="..\ShoeLabelGen.Common\ShoeLabelGen.Common.csproj" />
-  </ItemGroup>
-
 </Project>

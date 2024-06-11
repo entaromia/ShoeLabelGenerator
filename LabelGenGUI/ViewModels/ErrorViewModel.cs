@@ -1,4 +1,4 @@
-﻿namespace LabelGenGUI.Avalonia.ViewModels
+﻿namespace LabelGenGUI.ViewModels
 {
     public partial class ErrorViewModel(ViewModelBase.ErrorMessage err) : ViewModelBase
     {
