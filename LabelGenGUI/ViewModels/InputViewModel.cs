@@ -65,7 +65,7 @@ namespace LabelGenGUI.ViewModels
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Avalonia throws when static methods are used as commands")]
         public void GoBack()
         {
-            NavigationService.Instance.Navigate(NavigationService.ViewModelName.ShoeListViewModel);
+            NavigationService.Instance.Navigate(NavigationService.Pages.ShoeListPage);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace LabelGenGUI.ViewModels
 
         public void AddItem()
         {
-            NavigationService.Instance.Navigate(NavigationService.ViewModelName.InputViewModel);
+            NavigationService.Instance.Navigate(NavigationService.Pages.InputPage);
         }
     }
 }

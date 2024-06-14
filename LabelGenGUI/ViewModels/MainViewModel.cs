@@ -64,7 +64,7 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    private static void NavigateTo(NavigationService.ViewModelName name)
+    private static void NavigateTo(NavigationService.Pages name)
     {
         NavigationService.Instance.Navigate(name);
     }
@@ -93,7 +93,7 @@ public partial class MainViewModel : ViewModelBase
             ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
             ShoeListService.Instance.ProjectName = file.Name[..file.Name.IndexOf(".json")];
             if (!NavigationService.Instance.ContentHasPage)
-                NavigateTo(NavigationService.ViewModelName.ShoeListViewModel);
+                NavigateTo(NavigationService.Pages.ShoeListPage);
         }
     }
 
@@ -106,7 +106,7 @@ public partial class MainViewModel : ViewModelBase
             ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
             await ShoeListService.Instance.OpenFileAsync();
             if (!NavigationService.Instance.ContentHasPage)
-                NavigateTo(NavigationService.ViewModelName.ShoeListViewModel);
+                NavigateTo(NavigationService.Pages.ShoeListPage);
         }
     }
 
@@ -119,7 +119,7 @@ public partial class MainViewModel : ViewModelBase
     // TODO: Implement actual printing
     public async Task Print()
     {
-
+        NavigateTo(NavigationService.Pages.PrintPage);
     }
 
     public async Task SaveAsPicture()
@@ -133,5 +133,4 @@ public partial class MainViewModel : ViewModelBase
             await parcelAndBoxHelper.WriteParcelAndBoxAsync(ShoeListService.Instance.GetItems());
         }
     }
-#pragma warning restore CA1822 // Mark members as static
 }

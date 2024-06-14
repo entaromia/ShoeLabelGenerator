@@ -6,25 +6,28 @@ namespace LabelGenGUI.Services
 {
     public class NavigationService
     {
-        public static int GetViewModelIndex(ViewModelName name)
+        public static int GetViewModelFromPageName(Pages page)
         {
-            return name switch
+            return page switch
             {
-                ViewModelName.ShoeListViewModel => 0,
-                ViewModelName.InputViewModel => 1,
+                Pages.ShoeListPage => 0,
+                Pages.InputPage => 1,
+                Pages.PrintPage => 2,
                 _ => throw new System.NotImplementedException()
             };
         }
 
-        public enum ViewModelName
+        public enum Pages
         {
-            ShoeListViewModel,
-            InputViewModel
+            ShoeListPage,
+            InputPage,
+            PrintPage
         }
 
         public ViewModelBase[] viewModels = [
             new ShoeListViewModel(),
-            new InputViewModel()
+            new InputViewModel(),
+            new PrintViewModel()
             ];
 
         public static NavigationService Instance { get; } = new();
@@ -37,10 +40,10 @@ namespace LabelGenGUI.Services
             ContentControl!.Content = viewModel;
         }
 
-        public void Navigate(ViewModelName name)
+        public void Navigate(Pages page)
         {
-            Debug.WriteLine($"Navigating to: {name}");
-            Navigate(viewModels[GetViewModelIndex(name)]);
+            Debug.WriteLine($"Navigating to: {page}");
+            Navigate(viewModels[GetViewModelFromPageName(page)]);
         }
 
         public void MainPage() => Navigate(null);
