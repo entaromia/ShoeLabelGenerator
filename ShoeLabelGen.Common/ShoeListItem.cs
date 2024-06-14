@@ -4,6 +4,18 @@ namespace ShoeLabelGen.Common
 {
     public class ShoeListItem
     {
+        public ShoeListItem() { }
+
+        public ShoeListItem(ShoeListItem item) 
+        { 
+            Brand = item.Brand;
+            Quality = item.Quality;
+            Color = item.Color;
+            ReceiptNo = item.ReceiptNo;
+            ShoeCounts = item.ShoeCounts;
+            Total = item.Total;
+        }
+
         public string? Brand { get; set; }
 
         public string? Quality { get; set; }

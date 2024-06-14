@@ -37,17 +37,17 @@ namespace ImageSharpLabelGen.Helpers
             // If it's more than what we support, pass it directly without dividing
             if (item.Total > 12 && item.Total < 24)
             {
-                var lists = ShoeCountDivider.DivideShoeList(item.ShoeCounts);
+                var lists = ShoeCountDivider.DivideShoeList(item);
                 foreach (var list in lists)
                 {
-                    parcelWriter.Write(list, item.Brand, item.Quality, item.Color, item.ReceiptNo);
-                    boxWriter.Write(list, item.Brand, item.Quality, item.Color);
+                    parcelWriter.Write(list);
+                    boxWriter.Write(list);
                 }
             }
             else
             {
-                parcelWriter.Write(item.ShoeCounts, item.Brand, item.Quality, item.Color, item.ReceiptNo);
-                boxWriter.Write(item.ShoeCounts, item.Brand, item.Quality, item.Color);
+                parcelWriter.Write(item);
+                boxWriter.Write(item);
             }
         }
 

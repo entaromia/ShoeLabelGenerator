@@ -1,4 +1,5 @@
-﻿using SixLabors.Fonts;
+﻿using ShoeLabelGen.Common;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
@@ -28,27 +29,27 @@ namespace ImageSharpLabelGen.Writers
         private readonly PointF brandTextLocation = new(imageWidth / 2, 30);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 95);
 
-        public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color)
+        public void Write(ShoeListItem item)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string boxDir = Path.Combine(OutputFolder, "kutu");
 
             var date = DateTime.Now.Ticks;
 
-            var qualityInput = PadInput(quality, 3);
-            var colorInput = PadInput(color, 3);
-            var shoeList = ShoeListToKeyValuePairList(shoeCounts);
+            var qualityInput = PadInput(item.Quality!, 3);
+            var colorInput = PadInput(item.Color!, 3);
+            var shoeList = ShoeListToKeyValuePairList(item.ShoeCounts);
 
-            var brandText = new BrandText(BrandFont, brand) { Location = brandTextLocation };
+            var brandText = new BrandText(BrandFont, item.Brand!) { Location = brandTextLocation };
 
             Directory.CreateDirectory(boxDir);
 
             // As use all the available label area, use smaller font size for long colors
-            if (color.Length >= 12)
+            if (item.Color!.Length >= 12)
             {
                 // Use even smaller font for longer color names
                 // Helps scaling color input like 'HAKİ FLOTTER' or 'KOYU GRİ SÜET' properly
-                BodyFont = new Font(BodyFont, color.Length >= 13 ? 32 : 33);
+                BodyFont = new Font(BodyFont, item.Color!.Length >= 13 ? 32 : 33);
             }
 
             // Generate seperate labels for every single pair
@@ -78,7 +79,7 @@ namespace ImageSharpLabelGen.Writers
                 // if there is 3 42 shoes for example, we want to save 3 of the exact same picture
                 for (int i = 0; i < Convert.ToInt32(shoe.Value); i++)
                 {
-                    image.SaveAsPng(Path.Combine(boxDir, $"{brand}-{date}-{shoe.Key}-{i + 1}.png"));
+                    image.SaveAsPng(Path.Combine(boxDir, $"{item.Brand!}-{date}-{shoe.Key}-{i + 1}.png"));
                 }
             }
         }

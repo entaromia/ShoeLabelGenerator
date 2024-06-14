@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using ShoeLabelGen.Common;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace ImageSharpLabelGen.Helpers
 {
@@ -56,7 +58,7 @@ namespace ImageSharpLabelGen.Helpers
                 }
             }
 
-            // The lists are alvays evenly divided before fixup, this is not applicable for 18&22
+            // The lists are alvays evenly divided before fixup, this is not applicable for 18 & 22
             if (sum == 18 || sum == 22)
             {
                 // Divide into 10/8 for 18, 12/10 for 22
@@ -65,6 +67,17 @@ namespace ImageSharpLabelGen.Helpers
             }
 
             return [firstList, secondList];
+        }
+
+        public static IEnumerable<ShoeListItem> DivideShoeList(ShoeListItem item)
+        {
+            var list = new List<ShoeListItem>();
+            var dividedLists = DivideShoeList(item.ShoeCounts);
+            foreach (IEnumerable<int> shoeList in dividedLists)
+            {
+                list.Add(new ShoeListItem(item) { ShoeCounts = new ObservableCollection<int>(shoeList), Total = shoeList.Sum() });
+            }
+            return list;
         }
 
         /*

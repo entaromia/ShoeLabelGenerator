@@ -1,4 +1,5 @@
-﻿using SixLabors.Fonts;
+﻿using ShoeLabelGen.Common;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
@@ -28,16 +29,16 @@ namespace ImageSharpLabelGen.Writers
         private readonly PointF brandTextLocation = new(imageWidth / 2, 60);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 220);
 
-        public void Write(IEnumerable<int> shoeCounts, string brand, string quality, string color, string receiptNo)
+        public void Write(ShoeListItem item)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string parcelDir = Path.Combine(OutputFolder, "koli");
 
             var date = DateTime.Now.Ticks;
 
-            var qualityInput = PadInput(quality, 5);
-            var colorInput = PadInput(color, 5);
-            var receiptNoInput = PadInput(receiptNo, 5);
+            var qualityInput = PadInput(item.Quality!, 5);
+            var colorInput = PadInput(item.Color!, 5);
+            var receiptNoInput = PadInput(item.ReceiptNo!, 5);
 
             // ---- pattern ----
             // kalite: <quality input>
@@ -45,11 +46,11 @@ namespace ImageSharpLabelGen.Writers
             // fis no: <receipt no input>
             var group = $"{qualityText}:{qualityInput}\n{colorText}:{colorInput}\n{shoeNoText}:{receiptNoInput}";
 
-            var brandText = new BrandText(BrandFont, brand) { Location = brandTextLocation };
+            var brandText = new BrandText(BrandFont, item.Brand!) { Location = brandTextLocation };
 
             var groupText = new GroupText(BodyFont, group) { Location = groupTextLocation };
 
-            var shoeCountsPair = ShoeListToKeyValuePairList(shoeCounts);
+            var shoeCountsPair = ShoeListToKeyValuePairList(item.ShoeCounts);
 
             var shoeCountTextOptions = new RichTextOptions(BodyFont)
             {
@@ -66,7 +67,7 @@ namespace ImageSharpLabelGen.Writers
                 .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
                 .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
 
-            image.SaveAsPng(Path.Combine(parcelDir, $"{brand}-{date}.png"));
+            image.SaveAsPng(Path.Combine(parcelDir, $"{item.Brand!}-{date}.png"));
         }
     }
 }
