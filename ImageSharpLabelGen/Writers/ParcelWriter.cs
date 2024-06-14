@@ -29,7 +29,7 @@ namespace ImageSharpLabelGen.Writers
         private readonly PointF brandTextLocation = new(imageWidth / 2, 60);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 220);
 
-        public void Write(ShoeListItem item)
+        public async Task Write(ShoeListItem item)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string parcelDir = Path.Combine(OutputFolder, "koli");
@@ -67,7 +67,7 @@ namespace ImageSharpLabelGen.Writers
                 .DrawText(groupText.TextOptions, groupText.Text, TextBrush)
                 .WritePairs(shoeCountsPair, shoeCountTextOptions, TextBrush));
 
-            image.SaveAsPng(Path.Combine(parcelDir, $"{item.Brand!}-{date}.png"));
+            await image.SaveAsPngAsync(Path.Combine(parcelDir, $"{item.Brand!}-{date}.png"));
         }
     }
 }

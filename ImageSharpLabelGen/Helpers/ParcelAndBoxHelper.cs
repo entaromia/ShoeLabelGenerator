@@ -21,7 +21,7 @@ namespace ImageSharpLabelGen.Helpers
         /// <summary>
         /// Creates both parcel and box labels
         /// </summary>
-        public void WriteParcelAndBox(ShoeListItem item)
+        public async Task WriteParcelAndBoxAsync(ShoeListItem item)
         {
             // Validate inputs
             if (item.Brand is null ||
@@ -40,22 +40,22 @@ namespace ImageSharpLabelGen.Helpers
                 var lists = ShoeCountDivider.DivideShoeList(item);
                 foreach (var list in lists)
                 {
-                    parcelWriter.Write(list);
-                    boxWriter.Write(list);
+                    await parcelWriter.Write(list);
+                    await boxWriter.Write(list);
                 }
             }
             else
             {
-                parcelWriter.Write(item);
-                boxWriter.Write(item);
+                await parcelWriter.Write(item);
+                await boxWriter.Write(item);
             }
         }
 
-        public void WriteParcelAndBox(IEnumerable<ShoeListItem> items)
+        public async Task WriteParcelAndBoxAsync(IEnumerable<ShoeListItem> items)
         {
             foreach (var item in items)
             {
-                WriteParcelAndBox(item);
+                await WriteParcelAndBoxAsync(item);
             }
         }
     }

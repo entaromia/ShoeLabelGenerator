@@ -126,7 +126,7 @@ public partial class MainViewModel : ViewModelBase
         parcelAndBoxHelper.OutputFolder = await GetFolderPathAsync();
         if (parcelAndBoxHelper.OutputFolder is not null)
         {
-            parcelAndBoxHelper.WriteParcelAndBox(ShoeListService.Instance.GetItems());
+            await parcelAndBoxHelper.WriteParcelAndBoxAsync(ShoeListService.Instance.GetItems());
         }
     }
 #pragma warning restore CA1822 // Mark members as static

@@ -29,7 +29,7 @@ namespace ImageSharpLabelGen.Writers
         private readonly PointF brandTextLocation = new(imageWidth / 2, 30);
         private readonly PointF groupTextLocation = new(imageWidth / 2, 95);
 
-        public void Write(ShoeListItem item)
+        public async Task Write(ShoeListItem item)
         {
             ArgumentNullException.ThrowIfNull(OutputFolder);
             string boxDir = Path.Combine(OutputFolder, "kutu");
@@ -79,7 +79,7 @@ namespace ImageSharpLabelGen.Writers
                 // if there is 3 42 shoes for example, we want to save 3 of the exact same picture
                 for (int i = 0; i < Convert.ToInt32(shoe.Value); i++)
                 {
-                    image.SaveAsPng(Path.Combine(boxDir, $"{item.Brand!}-{date}-{shoe.Key}-{i + 1}.png"));
+                    await image.SaveAsPngAsync(Path.Combine(boxDir, $"{item.Brand!}-{date}-{shoe.Key}-{i + 1}.png"));
                 }
             }
         }
