@@ -12,7 +12,6 @@ namespace LabelGenGUI.ViewModels;
 public partial class MainViewModel : ViewModelBase
 {
     private static FilePickerFileType FilePickerFileTypeJson => new("Proje Dosyası") { Patterns = ["*.json"], MimeTypes = ["application/json"] };
-    private ParcelAndBoxHelper? parcelAndBoxHelper = null;
 
     private static async Task<IStorageFile?> GetSaveFileAsync()
     {
@@ -117,20 +116,17 @@ public partial class MainViewModel : ViewModelBase
     }
 
     // TODO: Implement actual printing
-    public async Task Print()
+    public void Print()
     {
         NavigateTo(NavigationService.Pages.PrintPage);
     }
 
     public async Task SaveAsPicture()
     {
-        // Initialize parcel and box helper on first save
-        parcelAndBoxHelper ??= new();
-
-        parcelAndBoxHelper.OutputFolder = await GetFolderPathAsync();
-        if (parcelAndBoxHelper.OutputFolder is not null)
+        var folder = await GetFolderPathAsync();
+        if (folder is not null)
         {
-            await parcelAndBoxHelper.WriteParcelAndBoxAsync(ShoeListService.Instance.GetItems());
+            LabelImageSaveHelper.SaveToPng(ShoeListService.Instance.GetItems(), folder);
         }
     }
 }

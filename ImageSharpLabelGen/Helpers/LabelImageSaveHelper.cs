@@ -1,27 +1,15 @@
-﻿using ImageSharpLabelGen.Writers;
+﻿using ImageSharpLabelGen.Output;
+using ImageSharpLabelGen.Writers;
 using ShoeLabelGen.Common;
 
 namespace ImageSharpLabelGen.Helpers
 {
-    public class ParcelAndBoxHelper
+    /// <summary>
+    /// This extension class saves lists box and parcel labels to picture
+    /// </summary>
+    public static class LabelImageSaveHelper
     {
-        private readonly ParcelWriter parcelWriter = new();
-        private readonly BoxWriter boxWriter = new();
-
-        public string? OutputFolder
-        {
-            get => parcelWriter.OutputFolder;
-            set
-            {
-                parcelWriter.OutputFolder = value;
-                boxWriter.OutputFolder = value;
-            }
-        }
-
-        /// <summary>
-        /// Creates both parcel and box labels
-        /// </summary>
-        public async Task WriteParcelAndBoxAsync(ShoeListItem item)
+        public static void SaveToPng(this ShoeListItem item, string outputFolder)
         {
             // Validate inputs
             if (item.Brand is null ||
@@ -40,22 +28,20 @@ namespace ImageSharpLabelGen.Helpers
                 var lists = ShoeCountDivider.DivideShoeList(item);
                 foreach (var list in lists)
                 {
-                    await parcelWriter.Write(list);
-                    await boxWriter.Write(list);
+                    list.SaveAsPicture(outputFolder);
                 }
             }
             else
             {
-                await parcelWriter.Write(item);
-                await boxWriter.Write(item);
+                item.SaveAsPicture(outputFolder);
             }
         }
 
-        public async Task WriteParcelAndBoxAsync(IEnumerable<ShoeListItem> items)
+        public static void SaveToPng(IEnumerable<ShoeListItem> items, string outputFolder)
         {
             foreach (var item in items)
             {
-                await WriteParcelAndBoxAsync(item);
+                SaveToPng(item, outputFolder);
             }
         }
     }

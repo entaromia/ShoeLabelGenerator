@@ -1,4 +1,6 @@
-﻿using ShoeLabelGen.Common;
+﻿using ImageSharpLabelGen.Helpers;
+using ImageSharpLabelGen.Output;
+using ShoeLabelGen.Common;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
@@ -11,38 +13,33 @@ namespace ImageSharpLabelGen.Writers
     /// This class writes small box labels
     /// Size: 4x6
     /// </summary>
-    public class BoxWriter : ShoeWriter
+    public static class BoxWriter
     {
         private const int imageWidth = 479; // 6cm in 203dpi
         private const int imageHeight = 319; // 4cm in 203dpi
 
         // We just want a larger text for the brand name, same for everything else
-        public override Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 35, FontStyle.Bold);
-        public override Font BrandFont { get; set; } = SystemFonts.CreateFont("Arial", 45, FontStyle.Bold);
+        public static Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 35, FontStyle.Bold);
+        public static Font BrandFont { get; set; } = SystemFonts.CreateFont("Arial", 45, FontStyle.Bold);
 
         // making sure each field has the same length so the ':' symbol always stays at the same place between lines
-        private readonly string qualityText = "KALİTE".PadRight(8, ' ');
-        private readonly string colorText = "RENK".PadRight(9, ' ');
-        private readonly string shoeNoText = "NO".PadRight(12, ' ');
+        private static readonly string qualityText = "KALİTE".PadRight(8, ' ');
+        private static readonly string colorText = "RENK".PadRight(9, ' ');
+        private static readonly string shoeNoText = "NO".PadRight(12, ' ');
 
         // half of the image x for centering text vertically
-        private readonly PointF brandTextLocation = new(imageWidth / 2, 30);
-        private readonly PointF groupTextLocation = new(imageWidth / 2, 95);
+        private static readonly PointF brandTextLocation = new(imageWidth / 2, 30);
+        private static readonly PointF groupTextLocation = new(imageWidth / 2, 95);
 
-        public async Task Write(ShoeListItem item)
+        public static List<LabelImage> Write(ShoeListItem item)
         {
-            ArgumentNullException.ThrowIfNull(OutputFolder);
-            string boxDir = Path.Combine(OutputFolder, "kutu");
+            List<LabelImage> imageResults = [];
 
-            var date = DateTime.Now.Ticks;
-
-            var qualityInput = PadInput(item.Quality!, 3);
-            var colorInput = PadInput(item.Color!, 3);
-            var shoeList = ShoeListToKeyValuePairList(item.ShoeCounts);
+            var qualityInput = item.Quality!.PadInput(3);
+            var colorInput = item.Color!.PadInput(3);
+            var shoeList = ShoeWriterHelper.ShoeListToKeyValuePairList(item.ShoeCounts);
 
             var brandText = new BrandText(BrandFont, item.Brand!) { Location = brandTextLocation };
-
-            Directory.CreateDirectory(boxDir);
 
             // As use all the available label area, use smaller font size for long colors
             if (item.Color!.Length >= 12)
@@ -55,7 +52,7 @@ namespace ImageSharpLabelGen.Writers
             // Generate seperate labels for every single pair
             foreach (var shoe in shoeList)
             {
-                // We add a "total" key for parcel writing, skip that
+                // We add a "total" key to end for parcel writing, stop
                 if (shoe.Key == "TOTAL")
                 {
                     break;
@@ -65,23 +62,22 @@ namespace ImageSharpLabelGen.Writers
                 // renk: <color input>
                 // no: <shoe no>
                 // shoe key is the shoe number
-                var group = $"{qualityText}:{qualityInput}\n{colorText}:{colorInput}\n{shoeNoText}:{PadInput(shoe.Key, 2)}";
+                var group = $"{qualityText}:{qualityInput}\n{colorText}:{colorInput}\n{shoeNoText}:{shoe.Key.PadInput(2)}";
 
                 var groupText = new GroupText(BodyFont, group) { Location = groupTextLocation, LineSpacing = 2F };
 
-                using var image = new Image<L8>(imageWidth, imageHeight);
+                var image = new Image<L8>(imageWidth, imageHeight);
                 image.Mutate(x =>
-                x.Fill(BackgroundBrush)
-                .DrawText(brandText.TextOptions, brandText.Text, TextBrush).
-                DrawText(groupText.TextOptions, groupText.Text, TextBrush));
+                x.Fill(CommonBrushes.Background)
+                .DrawText(brandText.TextOptions, brandText.Text, CommonBrushes.Text).
+                DrawText(groupText.TextOptions, groupText.Text, CommonBrushes.Text));
 
                 // we want to save a pic for every single pair
                 // if there is 3 42 shoes for example, we want to save 3 of the exact same picture
-                for (int i = 0; i < Convert.ToInt32(shoe.Value); i++)
-                {
-                    await image.SaveAsPngAsync(Path.Combine(boxDir, $"{item.Brand!}-{date}-{shoe.Key}-{i + 1}.png"));
-                }
+                imageResults.Add(new LabelImage() { Image = image, Copy = Convert.ToInt32(shoe.Value), ShoeSize = Convert.ToInt32(shoe.Key) });
             }
+
+            return imageResults;
         }
     }
 }

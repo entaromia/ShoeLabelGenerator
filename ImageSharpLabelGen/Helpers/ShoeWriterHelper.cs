@@ -2,38 +2,37 @@
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 
-namespace ImageSharpLabelGen.Writers
+namespace ImageSharpLabelGen.Helpers
 {
-    /// <summary>
-    /// This is a common class that both parcel and box writers use
-    /// </summary>
-    public abstract class ShoeWriter : IWriteText
+    public class BrandText : ImageSharpText
     {
-        public string? OutputFolder { get; set; }
-        public SolidBrush TextBrush { get; set; } = Brushes.Solid(Color.Black);
-        public SolidBrush BackgroundBrush { get; set; } = Brushes.Solid(Color.White);
-
-        public abstract Font BrandFont { get; set; }
-        public abstract Font BodyFont { get; set; }
-
-        public class BrandText : ImageSharpText
+        public BrandText(Font font, string text) : base(font, text)
         {
-            public BrandText(Font font, string text) : base(font, text)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center;
-                TextDecorations = TextDecorations.Underline;
-            }
+            HorizontalAlignment = HorizontalAlignment.Center;
+            TextDecorations = TextDecorations.Underline;
         }
+    }
 
-        public class GroupText : ImageSharpText
+    public class GroupText : ImageSharpText
+    {
+        public GroupText(Font font, string text) : base(font, text)
         {
-            public GroupText(Font font, string text) : base(font, text)
-            {
-                HorizontalAlignment = HorizontalAlignment.Center;
-                LineSpacing = 2F;
-            }
+            HorizontalAlignment = HorizontalAlignment.Center;
+            LineSpacing = 2F;
         }
+    }
 
+    public static class CommonBrushes
+    {
+        public static SolidBrush Text { get; set; } = Brushes.Solid(Color.Black);
+        public static SolidBrush Background { get; set; } = Brushes.Solid(Color.White);
+    }
+
+    /// <summary>
+    /// This is a common helper class that both parcel and box writers use
+    /// </summary>
+    public static class ShoeWriterHelper
+    {
         /// <summary>
         /// Converts an int only shoe counts list to a "shoe number : shoe count KeyValuePair"
         /// <br/>Starts from 38 to 45
@@ -71,6 +70,6 @@ namespace ImageSharpLabelGen.Writers
         /// <summary>
         /// Adds padding from start of the input
         /// </summary>
-        public static string PadInput(string input, int chars) => input.PadLeft(input.Length + chars, ' ');
+        public static string PadInput(this string input, int chars) => input.PadLeft(input.Length + chars, ' ');
     }
 }

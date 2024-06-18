@@ -7,14 +7,14 @@
              xmlns:views="clr-namespace:LabelGenGUI.Views"
              mc:Ignorable="d"
              x:Class="LabelGenGUI.Views.MainView"
-             x:DataType="vm:MainViewModel" MinHeight="400" MinWidth="300">
+             x:DataType="vm:MainViewModel" MinHeight="350" MinWidth="300">
   <Design.DataContext>
     <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel/>
   </Design.DataContext>
-  <StackPanel Orientation="Vertical">
-    <Menu Height="20" Margin="2">
+  <Grid RowDefinitions="18,*">
+    <Menu Grid.Row="0" VerticalAlignment="Top" Height="20" Margin="2">
       <MenuItem Header="_Dosya">
         <MenuItem Header="Yeni Proje" Command="{Binding NewProject}"/>
         <MenuItem Header="Proje Aç" Command="{Binding OpenProject}"/>
@@ -27,9 +27,10 @@
         <MenuItem Header="Yazıcı Ayarları"/>
       </MenuItem>
     </Menu>
-    <TextBlock Margin="0,20,0,0" Text="Dosya menüsünden yeni bir proje oluşturun veya proje seçin." TextWrapping="Wrap" Width="250"
+    <!-- Show welcome text if no project is open-->
+    <TextBlock Grid.Row="1" Text="Dosya menüsünden yeni bir proje oluşturun veya proje seçin." TextWrapping="Wrap" Width="250"
                TextAlignment="Center" VerticalAlignment="Center"
                IsVisible="{Binding #MainContentControl.Content, Converter={x:Static ObjectConverters.IsNull}}"/>
-    <ContentControl Name="MainContentControl"/>
-  </StackPanel>
+    <ContentControl Grid.Row="1" Name="MainContentControl" VerticalAlignment="Center"/>
+  </Grid>
 </UserControl>
