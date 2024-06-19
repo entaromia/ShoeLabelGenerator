@@ -38,9 +38,9 @@ namespace ImageSharpLabelGen.Helpers
         /// <br/>Starts from 38 to 45
         /// </summary>
         /// <param name="countList">Int based shoe counts list</param>
-        public static List<KeyValuePair<string, string>> ShoeListToKeyValuePairList(IEnumerable<int> countList)
+        public static List<KeyValuePair<string, int>> ShoeListToKeyValuePairList(IEnumerable<int> countList)
         {
-            List<KeyValuePair<string, string>> keyValuePairs = [];
+            List<KeyValuePair<string, int>> keyValuePairs = [];
 
             // shoe numbers start from 38 all the way up to 45
             int currentShoeNumber = 38;
@@ -56,14 +56,12 @@ namespace ImageSharpLabelGen.Helpers
 
                 total += item;
 
-                var keyValue = new KeyValuePair<string, string>(currentShoeNumber.ToString(), item.ToString());
+                var keyValue = new KeyValuePair<string, int>(currentShoeNumber.ToString(), item);
                 keyValuePairs.Add(keyValue);
 
                 currentShoeNumber++;
             }
-
-            // total is written on parcel labels
-            keyValuePairs.Add(new KeyValuePair<string, string>("TOTAL", total.ToString()));
+            
             return keyValuePairs;
         }
 

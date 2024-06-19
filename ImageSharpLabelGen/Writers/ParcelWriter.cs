@@ -49,6 +49,9 @@ namespace ImageSharpLabelGen.Writers
 
             var shoeCountsPair = ShoeWriterHelper.ShoeListToKeyValuePairList(item.ShoeCounts);
 
+            // Total is only written on parcel labels
+            shoeCountsPair.Add(new("TOTAL", item.Total));
+
             var shoeCountTextOptions = new RichTextOptions(BodyFont)
             {
                 LineSpacing = 1.2F,

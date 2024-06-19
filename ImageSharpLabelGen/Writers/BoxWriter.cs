@@ -52,11 +52,6 @@ namespace ImageSharpLabelGen.Writers
             // Generate seperate labels for every single pair
             foreach (var shoe in shoeList)
             {
-                // We add a "total" key to end for parcel writing, stop
-                if (shoe.Key == "TOTAL")
-                {
-                    break;
-                }
                 // ---- pattern ----
                 // kalite: <quality input>
                 // renk: <color input>

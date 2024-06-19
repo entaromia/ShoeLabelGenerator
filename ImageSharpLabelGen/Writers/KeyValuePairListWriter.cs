@@ -12,7 +12,7 @@ namespace ImageSharpLabelGen.Writers
         /// <summary>
         /// ImageSharp Extension that draws a KeyValuePair list horizontally stacked
         /// </summary>
-        public static IImageProcessingContext WritePairs(this IImageProcessingContext context, List<KeyValuePair<string, string>> pairList, RichTextOptions textOptions, Brush brush)
+        public static IImageProcessingContext WritePairs(this IImageProcessingContext context, List<KeyValuePair<string, int>> pairList, RichTextOptions textOptions, Brush brush)
         {
             int imageWidth = context.GetCurrentSize().Width;
 
