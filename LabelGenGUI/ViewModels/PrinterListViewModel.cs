@@ -1,7 +1,7 @@
 ﻿using Avalonia.Metadata;
 using LabelGenGUI.Services;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace LabelGenGUI.ViewModels
 {
@@ -13,10 +13,13 @@ namespace LabelGenGUI.ViewModels
         private string newPrinterUri = "";
         public string NewPrinterUri { get => newPrinterUri; set => SetProperty(ref newPrinterUri, value); }
 
-        private string selectedPrinterName = "";
-        public string SelectedPrinterName => SettingsService.Instance.Settings.CurrentPrinter?.Name ?? "";
+        public ObservableCollection<Printer> Printers => SettingsService.Instance.Settings.Printers;
 
-        public List<Printer> Printers => SettingsService.Instance.Settings.Printers;
+        public Printer? CurrentPrinter
+        {
+            get => SettingsService.Instance.Settings.CurrentPrinter;
+            set { SettingsService.Instance.Settings.CurrentPrinter = value; PropertyChangedEvent(); }
+        }
 
         [DependsOn(nameof(NewPrinterName))]
         [DependsOn(nameof(NewPrinterUri))]
@@ -25,6 +28,16 @@ namespace LabelGenGUI.ViewModels
         public void AddPrinter()
         {
             SettingsService.Instance.Settings.Printers.Add(new Printer { Name = NewPrinterName, Uri = NewPrinterUri });
+        }
+
+        public bool CanRemovePrinter(object msg) => msg is not null;
+        public void RemovePrinter()
+        {
+            if (CurrentPrinter is not null)
+            {
+                SettingsService.Instance.Settings.Printers.Remove(CurrentPrinter);
+
+            }
         }
     }
 }

@@ -6,20 +6,15 @@
              x:Class="LabelGenGUI.Views.PrinterListView"
              xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
              x:DataType="vm:PrinterListViewModel">
-  <StackPanel Orientation="Vertical" >
-    <TextBlock Text="{Binding SelectedPrinterName, StringFormat='Yazıcı: {0}'}" FontSize="16" Margin="16,0,0,10"/>
+  <StackPanel Orientation="Vertical">
+    <TextBlock Text="{Binding CurrentPrinter.Name, StringFormat='Yazıcı: {0}'}" FontSize="16" Margin="16,0,0,10"/>
     <DockPanel Height="16" Margin="0,5,0,0">
       <Separator Width="15" Margin="16,0,2,0"/>
       <TextBlock Text="Yazıcı Listesi" FontWeight="Light" FontSize="12"/>
       <Separator Margin="2,0,16,0"/>
     </DockPanel>
     <StackPanel Orientation="Vertical">
-      <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,8" Watermark="Yazıcı ismi girin" />
-      <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
-      <Button Content="Ekle" HorizontalAlignment="Center" Command="{Binding AddPrinter}"/>
-    </StackPanel>
-    <StackPanel Orientation="Vertical">
-      <ListBox Name="PrinterList" SelectionMode="Toggle" ItemsSource="{Binding Printers}" Margin="10" Width="280" Height="150">
+      <ListBox Name="PrinterList" SelectionMode="Toggle" ItemsSource="{Binding Printers}" SelectedItem="{Binding CurrentPrinter}" Margin="10" Width="280" Height="150">
         <ListBox.Styles>
           <Style Selector="ListBoxItem">
             <Setter Property="BorderBrush" Value="Black" />
@@ -35,6 +30,14 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
+    </StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,8" Watermark="Yazıcı ismi girin" />
+      <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <Button Content="Ekle" Command="{Binding AddPrinter}" Margin="0,0,8,0"/>
+        <Button Content="Sil" Command="{Binding RemovePrinter}" CommandParameter="{Binding ElementName=PrinterList, Path=SelectedItem}"/>
+      </StackPanel>
     </StackPanel>
   </StackPanel>
 </UserControl>
