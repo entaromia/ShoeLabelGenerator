@@ -30,7 +30,7 @@ namespace LabelGenGUI.Services
             StringBuilder zplString = new();
             foreach (var item in items)
             {
-                item.BoxToZpl();
+                zplString.Append(item.BoxToZpl());
             }
             return zplString.ToString();
         }
