@@ -6,13 +6,10 @@ namespace LabelGenGUI.ViewModels
 {
     public class PrintViewModel : ViewModelBase
     {
-        private bool progressVisible;
-        public bool ProgressVisible { get => progressVisible; set => SetProperty(ref progressVisible, value); }
-
         private bool progressBarVisible;
         public bool ProgressBarVisible { get => progressBarVisible; set => SetProperty(ref progressBarVisible, value); }
 
-        private string progressMessage = "hi";
+        private string progressMessage = "";
         public string ProgressMessage { get => progressMessage; set => SetProperty(ref progressMessage, value); }
 
         private int totalBox = 0;
@@ -26,7 +23,6 @@ namespace LabelGenGUI.ViewModels
 
         public async Task PrintBox()
         {
-            ProgressVisible = true;
             ProgressBarVisible = true;
             ProgressMessage = "Kutu etiketi yazdırılacak...";
             Task.Delay(100).Wait();
@@ -40,7 +36,6 @@ namespace LabelGenGUI.ViewModels
 
         public async Task PrintParcel()
         {
-            ProgressVisible = true;
             ProgressBarVisible = true;
             ProgressMessage = "Koli etiketi yazdırılacak...";
             Task.Delay(100).Wait();

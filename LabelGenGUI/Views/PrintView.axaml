@@ -16,7 +16,7 @@
       <Button Content="Koli Yazdır" Command="{Binding PrintParcel}"/>
     </StackPanel>
     <Border MinHeight="65">
-      <StackPanel Orientation="Vertical" Margin="16,25" IsVisible="{Binding ProgressVisible}">
+      <StackPanel Orientation="Vertical" Margin="16,25">
         <ProgressBar IsIndeterminate="True" Margin="0,0,0,5" IsVisible="{Binding ProgressBarVisible}"/>
         <TextBlock FontSize="16" Text="{Binding ProgressMessage}" />
       </StackPanel>
