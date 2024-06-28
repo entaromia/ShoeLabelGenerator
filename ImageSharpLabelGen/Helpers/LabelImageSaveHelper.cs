@@ -9,7 +9,7 @@ namespace ImageSharpLabelGen.Helpers
     /// </summary>
     public static class LabelImageSaveHelper
     {
-        public static void SaveToPng(this ShoeListItem item, string outputFolder)
+        public static void SaveToPng(ShoeListItem item, string outputFolder)
         {
             // Validate inputs
             if (item.Brand is null ||

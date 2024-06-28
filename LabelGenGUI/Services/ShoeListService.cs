@@ -40,6 +40,27 @@ namespace LabelGenGUI.Services
             shoeListData.ShoeItems.RemoveAt(index);
         }
 
+        public int GetTotalBox()
+        {
+            int total = 0;
+            foreach (var item in shoeListData.ShoeItems)
+            {
+                total += item.Total;
+            }
+            return total;
+        }
+
+        public int GetTotalParcel()
+        {
+            int total = 0;
+            foreach (var item in shoeListData.ShoeItems)
+            {
+                // If total is more than 12, there will be 2 parcel labels for that list
+                total += item.Total > 12 ? 2 : 1;
+            }
+            return total;
+        }
+
         public async Task SaveToFileAsync()
         {
             var stream = File.Open(CurrentFile!, FileMode.Create);

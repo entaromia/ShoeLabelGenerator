@@ -24,7 +24,6 @@
         <MenuItem Header="Resim Olarak Kaydet" Command="{Binding SaveAsPicture}"/>
         <MenuItem Header="-"/>
         <MenuItem Header="Yazdır" Command="{Binding Print}"/>
-        <MenuItem Header="Yazıcı Ayarları"/>
       </MenuItem>
     </Menu>
     <!-- Show welcome text if no project is open-->

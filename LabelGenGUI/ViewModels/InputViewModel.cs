@@ -57,7 +57,7 @@ namespace LabelGenGUI.ViewModels
             }
             else
             {
-                ShoeListService.Instance.AddItem(ShoeListItem);
+                ShoeListService.Instance.AddItem(new ShoeListItem(ShoeListItem));
                 GoBack();
             }
         }

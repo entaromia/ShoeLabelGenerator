@@ -5,26 +5,18 @@ using System;
 
 namespace LabelGenGUI.Services
 {
-    public class ViewLocator : IDataTemplate
+    [StaticViewLocator]
+    public partial class ViewLocator : IDataTemplate
     {
         public Control Build(object? data)
         {
-            if (data is null)
-            {
-                return new TextBlock { Text = "data was null" };
-            }
+            var type = data!.GetType();
 
-            var name = data.GetType().FullName!.Replace("ViewModel", "View");
-            var type = Type.GetType(name);
-
-            if (type != null)
+            if (s_views.TryGetValue(type, out var func))
             {
-                return (Control)Activator.CreateInstance(type)!;
+                return func.Invoke();
             }
-            else
-            {
-                return new TextBlock { Text = "Not Found: " + name };
-            }
+            throw new Exception($"Unable to create view for type: {type}");
         }
 
         public bool Match(object? data)

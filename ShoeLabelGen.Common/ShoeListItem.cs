@@ -12,7 +12,7 @@ namespace ShoeLabelGen.Common
             Quality = item.Quality;
             Color = item.Color;
             ReceiptNo = item.ReceiptNo;
-            ShoeCounts = item.ShoeCounts;
+            ShoeCounts = new ObservableCollection<int>(item.ShoeCounts);
             Total = item.Total;
         }
 

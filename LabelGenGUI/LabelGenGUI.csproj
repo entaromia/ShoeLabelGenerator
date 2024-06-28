@@ -7,6 +7,7 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
@@ -31,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ImageSharpLabelGen\ImageSharpLabelGen.csproj" />
     <ProjectReference Include="..\ShoeLabelGen.Common\ShoeLabelGen.Common.csproj" />
-
+    <ProjectReference Include="..\LabelGenGUI.Generators\LabelGenGUI.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
   </ItemGroup>
 
   <ItemGroup>
@@ -43,6 +44,9 @@
     </Compile>
     <Compile Update="Views\ShoeListView.axaml.cs">
       <DependentUpon>ShoeListView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\PrinterListView.axaml.cs">
+      <DependentUpon>PrinterListView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using LabelGenGUI.Services;
 using LabelGenGUI.ViewModels;
 using LabelGenGUI.Views;
 
@@ -17,6 +18,7 @@ public partial class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            desktop.Exit += DesktopOnExit;
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainViewModel()
@@ -30,6 +32,13 @@ public partial class App : Application
             };
         }
 
+        SettingsService.Instance.Load();
+
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void DesktopOnExit(object? sender, ControlledApplicationLifetimeExitEventArgs e)
+    {
+        SettingsService.Instance.Save();
     }
 }
