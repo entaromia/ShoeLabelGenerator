@@ -25,7 +25,7 @@ namespace LabelGenGUI.ViewModels
         {
             ProgressBarVisible = true;
             ProgressMessage = "Kutu etiketi yazdırılacak...";
-            Task.Delay(100).Wait();
+            await Task.Delay(100);
             var printed = await Task.Run(PrintBoxJob);
             if (printed)
             {
@@ -38,7 +38,7 @@ namespace LabelGenGUI.ViewModels
         {
             ProgressBarVisible = true;
             ProgressMessage = "Koli etiketi yazdırılacak...";
-            Task.Delay(100).Wait();
+            await Task.Delay(100);
             var printed = await Task.Run(PrintParcelJob);
             if (printed)
             {
@@ -51,7 +51,7 @@ namespace LabelGenGUI.ViewModels
         {
             string zplText = PrintService.Instance.BoxesToZpl(ShoeListService.Instance.GetItems());
             UpdateUI("Etiketler oluşturuldu");
-            Task.Delay(150).Wait();
+            await Task.Delay(150);
             UpdateUI("Etiketler yazdırılıyor");
             return await PrintService.Instance.PrintZpl(zplText);
         }
@@ -60,7 +60,7 @@ namespace LabelGenGUI.ViewModels
         {
             string zplText = PrintService.Instance.ParcelsToZpl(ShoeListService.Instance.GetItems());
             UpdateUI("Etiketler oluşturuldu");
-            Task.Delay(150).Wait();
+            await Task.Delay(150);
             UpdateUI("Etiketler yazdırılıyor");
             return await PrintService.Instance.PrintZpl(zplText);
         }
