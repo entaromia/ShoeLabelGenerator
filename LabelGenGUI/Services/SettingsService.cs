@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LabelGenGUI.Services
 {
@@ -14,6 +15,11 @@ namespace LabelGenGUI.Services
             set => currentPrinter = value;
         }
         private Printer? currentPrinter;
+    }
+
+    [JsonSerializable(typeof(Settings))]
+    internal partial class SettingsContext : JsonSerializerContext
+    {
     }
 
     public class Printer
@@ -48,7 +54,7 @@ namespace LabelGenGUI.Services
         public void Save()
         {
             using var stream = File.Open(filePath, FileMode.Create);
-            JsonSerializer.Serialize(stream, Settings);
+            JsonSerializer.Serialize(stream, Settings, SettingsContext.Default.Settings);
         }
 
         public Settings Load()
@@ -60,7 +66,7 @@ namespace LabelGenGUI.Services
                 {
                     try
                     {
-                        return JsonSerializer.Deserialize<Settings>(stream)!;
+                        return JsonSerializer.Deserialize(stream, SettingsContext.Default.Settings)!;
                     }
                     catch { Console.WriteLine("Settings file is not valid, will be overwritten on close!"); return new(); }
                 }

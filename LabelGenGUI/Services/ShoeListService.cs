@@ -3,21 +3,27 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace LabelGenGUI.Services
 {
+    internal class ShoeListData
+    {
+        public int FileVersion { get; set; } = 1;
+        public string? ProjectName { get; set; }
+        public ObservableCollection<ShoeListItem> ShoeItems { get; set; } = [];
+    }
+
+    [JsonSerializable(typeof(ShoeListData))]
+    internal partial class ShoeListDataContext : JsonSerializerContext
+    {
+    }
+
     public class ShoeListService
     {
         public string? CurrentFile { get; set; }
         public static ShoeListService Instance { get; } = new();
-
-        private class ShoeListData
-        {
-            public int FileVersion { get; set; } = 1;
-            public string? ProjectName { get; set; }
-            public ObservableCollection<ShoeListItem> ShoeItems { get; set; } = [];
-        }
 
         private readonly ShoeListData shoeListData = new();
         public ObservableCollection<ShoeListItem> GetItems() => shoeListData.ShoeItems;
@@ -64,14 +70,14 @@ namespace LabelGenGUI.Services
         public async Task SaveToFileAsync()
         {
             var stream = File.Open(CurrentFile!, FileMode.Create);
-            await JsonSerializer.SerializeAsync(stream, shoeListData);
+            await JsonSerializer.SerializeAsync(stream, shoeListData, ShoeListDataContext.Default.ShoeListData);
             stream.Close();
         }
 
         public async Task OpenFileAsync()
         {
             var stream = File.Open(CurrentFile!, FileMode.OpenOrCreate);
-            var temp = await JsonSerializer.DeserializeAsync<ShoeListData>(stream);
+            var temp = await JsonSerializer.DeserializeAsync(stream, ShoeListDataContext.Default.ShoeListData);
             if (temp is not null)
             {
                 shoeListData.FileVersion = temp.FileVersion > 1 ? temp.FileVersion : 1;
