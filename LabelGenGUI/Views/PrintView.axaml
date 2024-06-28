@@ -8,6 +8,7 @@
              x:DataType="vm:PrintViewModel" AttachedToVisualTree="GetTotalCounts">
   
   <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+    <Button Content="Geri Dön" Margin="16,8,0,10" Command="{Binding GoBack}"/>
     <TextBlock Text="{Binding TotalBox, StringFormat='Toplam Kutu Barkod: {0}'}" FontSize="16" Margin="16,8,0,10"/>
     <TextBlock Text="{Binding TotalParcel, StringFormat='Toplam Koli Barkod: {0}'}" FontSize="16" Margin="16,0,0,10" />
     <StackPanel Orientation="Horizontal" Margin="16,5">
