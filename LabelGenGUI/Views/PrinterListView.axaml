@@ -13,7 +13,6 @@
       <TextBlock Text="Yazıcı Listesi" FontWeight="Light" FontSize="12"/>
       <Separator Margin="2,0,16,0"/>
     </DockPanel>
-    <StackPanel Orientation="Vertical">
       <ListBox Name="PrinterList" ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectionMode="Toggle" ItemsSource="{Binding Printers}" SelectedItem="{Binding CurrentPrinter}" Margin="10" Width="280" Height="150">
         <ListBox.Styles>
           <Style Selector="ListBoxItem">
@@ -33,7 +32,6 @@
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
-    </StackPanel>
     <StackPanel Orientation="Vertical">
       <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,0" Watermark="Yazıcı ismi girin" />
       <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
