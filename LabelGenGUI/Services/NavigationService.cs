@@ -30,6 +30,8 @@ namespace LabelGenGUI.Services
             new PrintViewModel()
             ];
 
+        private object? previousPage;
+
         public static NavigationService Instance { get; } = new();
 
         public ContentControl? ContentControl { private get; set; }
@@ -37,6 +39,7 @@ namespace LabelGenGUI.Services
 
         public void Navigate(ViewModelBase? viewModel)
         {
+            previousPage = ContentControl!.Content;
             ContentControl!.Content = viewModel;
         }
 
@@ -44,6 +47,14 @@ namespace LabelGenGUI.Services
         {
             Debug.WriteLine($"Navigating to: {page}");
             Navigate(viewModels[GetViewModelFromPageName(page)]);
+        }
+
+        public void NavigateBack()
+        {
+            if (ContentControl!.Content is not null)
+            {
+                ContentControl!.Content = previousPage;
+            }
         }
 
         public void MainPage() => Navigate(null);

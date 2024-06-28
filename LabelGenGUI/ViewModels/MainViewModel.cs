@@ -71,6 +71,7 @@ public partial class MainViewModel : ViewModelBase
     // Avalonia throws when static methods are used as commands
     public bool CanSaveProject(object msg) => ShoeListService.Instance.CurrentFile is not null;
     public bool CanCloseProject(object msg) => ShoeListService.Instance.CurrentFile is not null;
+    public bool CanGoToListView(object msg) => ShoeListService.Instance.CurrentFile is not null;
     public bool CanSaveAsPicture(object msg) => ShoeListService.Instance.ItemCount > 0;
     public bool CanPrint(object msg) => ShoeListService.Instance.ItemCount > 0;
 
@@ -92,7 +93,7 @@ public partial class MainViewModel : ViewModelBase
             ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
             ShoeListService.Instance.ProjectName = file.Name[..file.Name.IndexOf(".json")];
             if (!NavigationService.Instance.ContentHasPage)
-                NavigateTo(NavigationService.Pages.ShoeListPage);
+                GoToListView();
         }
     }
 
@@ -105,7 +106,7 @@ public partial class MainViewModel : ViewModelBase
             ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
             await ShoeListService.Instance.OpenFileAsync();
             if (!NavigationService.Instance.ContentHasPage)
-                NavigateTo(NavigationService.Pages.ShoeListPage);
+                GoToListView();
         }
     }
 
@@ -129,4 +130,7 @@ public partial class MainViewModel : ViewModelBase
             LabelImageSaveHelper.SaveToPng(ShoeListService.Instance.GetItems(), folder);
         }
     }
+
+    public void GoToListView() => NavigateTo(NavigationService.Pages.ShoeListPage);
+    public void GoBack() => NavigationService.Instance.NavigateBack();
 }

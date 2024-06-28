@@ -69,10 +69,5 @@ namespace LabelGenGUI.ViewModels
         {
             Dispatcher.UIThread.Post(() => { ProgressMessage = message; });
         }
-
-        public void GoBack()
-        {
-            NavigationService.Instance.Navigate(NavigationService.Pages.ShoeListPage);
-        }
     }
 }

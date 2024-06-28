@@ -58,14 +58,8 @@ namespace LabelGenGUI.ViewModels
             else
             {
                 ShoeListService.Instance.AddItem(new ShoeListItem(ShoeListItem));
-                GoBack();
+                NavigationService.Instance.NavigateBack();
             }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Avalonia throws when static methods are used as commands")]
-        public void GoBack()
-        {
-            NavigationService.Instance.Navigate(NavigationService.Pages.ShoeListPage);
         }
     }
 }

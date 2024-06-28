@@ -13,8 +13,8 @@
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
     <vm:MainViewModel/>
   </Design.DataContext>
-  <Grid RowDefinitions="18,*">
-    <Menu Grid.Row="0" VerticalAlignment="Top" Height="20" Margin="2">
+  <Grid RowDefinitions="22,*">
+    <Menu Grid.Row="0" Height="22" Margin="0,2,0,2">
       <MenuItem Header="_Dosya">
         <MenuItem Header="Yeni Proje" Command="{Binding NewProject}"/>
         <MenuItem Header="Proje Aç" Command="{Binding OpenProject}"/>
@@ -23,8 +23,10 @@
         <MenuItem Header="Kaydet" Command="{Binding SaveProject}"/>
         <MenuItem Header="Resim Olarak Kaydet" Command="{Binding SaveAsPicture}"/>
         <MenuItem Header="-"/>
+        <MenuItem Header="Listeyi Düzenle" Command="{Binding GoToListView}"/>
         <MenuItem Header="Yazdır" Command="{Binding Print}"/>
       </MenuItem>
+      <MenuItem Header="Geri Dön" Command="{Binding GoBack}"/>
     </Menu>
     <!-- Show welcome text if no project is open-->
     <TextBlock Grid.Row="1" Text="Dosya menüsünden yeni bir proje oluşturun veya proje seçin." TextWrapping="Wrap" Width="250"
