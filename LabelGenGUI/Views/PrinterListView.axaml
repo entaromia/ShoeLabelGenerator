@@ -32,11 +32,11 @@
       </ListBox>
     </StackPanel>
     <StackPanel Orientation="Vertical">
-      <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,8" Watermark="Yazıcı ismi girin" />
+      <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,0" Watermark="Yazıcı ismi girin" />
       <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Content="Ekle" Command="{Binding AddPrinter}" Margin="0,0,8,0"/>
-        <Button Content="Sil" Command="{Binding RemovePrinter}" CommandParameter="{Binding ElementName=PrinterList, Path=SelectedItem}"/>
+        <Button Content="Ekle" Command="{Binding AddPrinter}" Margin="0,0,8,8"/>
+        <Button Content="Sil" Command="{Binding RemovePrinter}" CommandParameter="{Binding ElementName=PrinterList, Path=SelectedItem}" Margin="0,0,0,8"/>
       </StackPanel>
     </StackPanel>
   </StackPanel>
