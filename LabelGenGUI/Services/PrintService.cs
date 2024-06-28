@@ -37,7 +37,7 @@ namespace LabelGenGUI.Services
 
         public async Task<bool> PrintZpl(string data)
         {
-            Printer.PrinterUrl = "http://192.168.1.1:631/printers/XprinterXP-470B";//SettingsService.Instance.Settings.CurrentPrinter!.Uri;
+            Printer.PrinterUrl = SettingsService.Instance.Settings.CurrentPrinter!.Uri;
             return await Printer.Print(data);
         }
     }
