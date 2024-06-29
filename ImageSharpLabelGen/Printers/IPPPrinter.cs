@@ -27,16 +27,28 @@ namespace ImageSharpLabelGen.Printers
                 DocumentAttributes = rawDocumentAttribute
             };
 #if false
-            await Task.Delay(1000);
+            File.WriteAllText("test.txt", data);
+            await Task.Delay(100);
             return true;
 #else
             var response = await client.PrintJobAsync(request);
 
-            if (response.JobState == JobState.Completed)
+            var jobStatusRequest = new GetJobAttributesRequest
             {
-                return true;
+                JobId = response.JobId,
+                PrinterUri = printerUri,
+                RequestedAttributes = [JobAttribute.JobState]
+            };
+
+            var jobStatusResponse = await client.GetJobAttributesAsync(jobStatusRequest);
+
+            while (jobStatusResponse.JobAttributes.JobState != JobState.Completed)
+            {
+                await Task.Delay(250);
+                jobStatusResponse = await client.GetJobAttributesAsync(jobStatusRequest);
             }
-            return false;
+
+            return true;
 #endif
         }
     }
