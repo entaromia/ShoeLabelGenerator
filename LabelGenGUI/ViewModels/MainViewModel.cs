@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
+using CommunityToolkit.Mvvm.Input;
 using ImageSharpLabelGen.Helpers;
 using LabelGenGUI.Services;
 using System;
@@ -69,13 +70,11 @@ public partial class MainViewModel : ViewModelBase
     }
 
     // Avalonia throws when static methods are used as commands
-    public bool CanSaveProject(object msg) => ShoeListService.Instance.CurrentFile is not null;
-    public bool CanCloseProject(object msg) => ShoeListService.Instance.CurrentFile is not null;
-    public bool CanGoToListView(object msg) => ShoeListService.Instance.CurrentFile is not null;
-    public bool CanSaveAsPicture(object msg) => ShoeListService.Instance.ItemCount > 0;
-    public bool CanPrint(object msg) => ShoeListService.Instance.ItemCount > 0;
+    private bool ProjectOpen() => ShoeListService.Instance.CurrentFile is not null;
+    private bool CanSave() => ShoeListService.Instance.ItemCount > 0;
 
-    public async Task SaveProject()
+    [RelayCommand(CanExecute = nameof(ProjectOpen))]
+    private async Task SaveProject()
     {
         if (ShoeListService.Instance.CurrentFile is null)
         {
@@ -84,7 +83,8 @@ public partial class MainViewModel : ViewModelBase
         await ShoeListService.Instance.SaveToFileAsync();
     }
 
-    public async Task NewProject()
+    [RelayCommand]
+    private async Task NewProject()
     {
         var file = await GetSaveFileAsync();
         if (file is not null)
@@ -97,7 +97,8 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    public async Task OpenProject()
+    [RelayCommand]
+    private async Task OpenProject()
     {
         var file = await GetOpenFileAsync();
         if (file is not null)
@@ -110,19 +111,21 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    public void CloseProject()
+    [RelayCommand(CanExecute = nameof(ProjectOpen))]
+    private void CloseProject()
     {
         NavigationService.Instance.MainPage();
         ShoeListService.Instance.CloseProject();
     }
 
-    // TODO: Implement actual printing
-    public void Print()
+    [RelayCommand(CanExecute = nameof(CanSave))]
+    private void Print()
     {
         NavigateTo(NavigationService.Pages.PrintPage);
     }
 
-    public async Task SaveAsPicture()
+    [RelayCommand(CanExecute = nameof(CanSave))]
+    private async Task SaveAsPicture()
     {
         var folder = await GetFolderPathAsync();
         if (folder is not null)
@@ -131,6 +134,9 @@ public partial class MainViewModel : ViewModelBase
         }
     }
 
-    public void GoToListView() => NavigateTo(NavigationService.Pages.ShoeListPage);
-    public void GoBack() => NavigationService.Instance.NavigateBack();
+    [RelayCommand(CanExecute = nameof(ProjectOpen))]
+    private void GoToListView() => NavigateTo(NavigationService.Pages.ShoeListPage);
+
+    [RelayCommand]
+    private void GoBack() => NavigationService.Instance.NavigateBack();
 }

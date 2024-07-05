@@ -1,24 +1,25 @@
 ﻿using Avalonia.Metadata;
+using CommunityToolkit.Mvvm.ComponentModel;
 using LabelGenGUI.Services;
 using System;
 using System.Collections.ObjectModel;
 
 namespace LabelGenGUI.ViewModels
 {
-    public class PrinterListViewModel : ViewModelBase
+    public partial class PrinterListViewModel : ViewModelBase
     {
+        [ObservableProperty]
         private string newPrinterName = "";
-        public string NewPrinterName { get => newPrinterName; set => SetProperty(ref newPrinterName, value); }
 
+        [ObservableProperty]
         private string newPrinterUri = "";
-        public string NewPrinterUri { get => newPrinterUri; set => SetProperty(ref newPrinterUri, value); }
 
         public ObservableCollection<Printer> Printers => SettingsService.Instance.Settings.Printers;
 
         public Printer? CurrentPrinter
         {
             get => SettingsService.Instance.Settings.CurrentPrinter;
-            set { SettingsService.Instance.Settings.CurrentPrinter = value; PropertyChangedEvent(); }
+            set { SettingsService.Instance.Settings.CurrentPrinter = value; OnPropertyChanged(); }
         }
 
         [DependsOn(nameof(NewPrinterName))]

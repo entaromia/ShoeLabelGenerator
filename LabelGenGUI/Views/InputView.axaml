@@ -79,7 +79,7 @@
         </StackPanel>
       </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center">
-          <Button Command="{Binding AddNewItem}" Margin="10" FontSize="16" Padding="5" Content="Ekle"/>
+          <Button Command="{Binding AddNewItemCommand}" Margin="10" FontSize="16" Padding="5" Content="Ekle"/>
           <TextBlock Text="{Binding Total, StringFormat='Toplam: {0}'}" VerticalAlignment="Center"/>
         </StackPanel>
     </Grid>

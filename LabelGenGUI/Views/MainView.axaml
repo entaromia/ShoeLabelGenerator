@@ -16,17 +16,17 @@
   <Grid RowDefinitions="22,*">
     <Menu Grid.Row="0" Height="22" Margin="0,2,0,2">
       <MenuItem Header="_Dosya">
-        <MenuItem Header="Yeni Proje" Command="{Binding NewProject}"/>
-        <MenuItem Header="Proje Aç" Command="{Binding OpenProject}"/>
-        <MenuItem Header="Projeyi Kapat" Command="{Binding CloseProject}"/>
+        <MenuItem Header="Yeni Proje" Command="{Binding NewProjectCommand}"/>
+        <MenuItem Header="Proje Aç" Command="{Binding OpenProjectCommand}"/>
+        <MenuItem Header="Projeyi Kapat" Command="{Binding CloseProjectCommand}"/>
         <MenuItem Header="-"/>
-        <MenuItem Header="Kaydet" Command="{Binding SaveProject}"/>
-        <MenuItem Header="Resim Olarak Kaydet" Command="{Binding SaveAsPicture}"/>
+        <MenuItem Header="Kaydet" Command="{Binding SaveProjectCommand}"/>
+        <MenuItem Header="Resim Olarak Kaydet" Command="{Binding SaveAsPictureCommand}"/>
         <MenuItem Header="-"/>
-        <MenuItem Header="Listeyi Düzenle" Command="{Binding GoToListView}"/>
-        <MenuItem Header="Yazdır" Command="{Binding Print}"/>
+        <MenuItem Header="Listeyi Düzenle" Command="{Binding GoToListViewCommand}"/>
+        <MenuItem Header="Yazdır" Command="{Binding PrintCommand}"/>
       </MenuItem>
-      <MenuItem Header="Geri Dön" Command="{Binding GoBack}"/>
+      <MenuItem Header="Geri Dön" Command="{Binding GoBackCommand}"/>
     </Menu>
     <!-- Show welcome text if no project is open-->
     <TextBlock Grid.Row="1" Text="Dosya menüsünden yeni bir proje oluşturun veya proje seçin." TextWrapping="Wrap" Width="250"

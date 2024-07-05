@@ -1,22 +1,23 @@
 ﻿using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using LabelGenGUI.Services;
 using System.Threading.Tasks;
 
 namespace LabelGenGUI.ViewModels
 {
-    public class PrintViewModel : ViewModelBase
+    public partial class PrintViewModel : ViewModelBase
     {
+        [ObservableProperty]
         private bool progressBarVisible;
-        public bool ProgressBarVisible { get => progressBarVisible; set => SetProperty(ref progressBarVisible, value); }
 
+        [ObservableProperty]
         private string progressMessage = "";
-        public string ProgressMessage { get => progressMessage; set => SetProperty(ref progressMessage, value); }
 
+        [ObservableProperty]
         private int totalBox = 0;
-        public int TotalBox { get => totalBox; set => SetProperty(ref totalBox, value); }
 
+        [ObservableProperty]
         private int totalParcel = 0;
-        public int TotalParcel { get => totalParcel; set => SetProperty(ref totalParcel, value); }
 
         public void GetTotalBox() => TotalBox = ShoeListService.Instance.GetTotalBox();
         public void GetTotalParcel() => TotalParcel = ShoeListService.Instance.GetTotalParcel();

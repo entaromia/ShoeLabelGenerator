@@ -1,9 +1,10 @@
-﻿using LabelGenGUI.Services;
+﻿using CommunityToolkit.Mvvm.Input;
+using LabelGenGUI.Services;
 using ShoeLabelGen.Common;
 
 namespace LabelGenGUI.ViewModels
 {
-    public class InputViewModel : ViewModelBase
+    public partial class InputViewModel : ViewModelBase
     {
         public int Total
         {
@@ -11,7 +12,7 @@ namespace LabelGenGUI.ViewModels
             set
             {
                 ShoeListItem.Total = value;
-                PropertyChangedEvent();
+                OnPropertyChanged();
             }
         }
 
@@ -45,7 +46,8 @@ namespace LabelGenGUI.ViewModels
             };
         }
 
-        public void AddNewItem()
+        [RelayCommand]
+        private void AddNewItem()
         {
             // Validate inputs
             if (ShoeListItem.Brand is null ||
