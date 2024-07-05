@@ -44,7 +44,7 @@ namespace ImageSharpLabelGen.Printers
 
             while (jobStatusResponse.JobAttributes.JobState != JobState.Completed)
             {
-                await Task.Delay(250);
+                await Task.Delay(300);
                 jobStatusResponse = await client.GetJobAttributesAsync(jobStatusRequest);
             }
 
