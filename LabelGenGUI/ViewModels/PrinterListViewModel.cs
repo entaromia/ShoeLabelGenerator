@@ -1,5 +1,4 @@
-﻿using Avalonia.Metadata;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Input;
 using LabelGenGUI.Services;
 using System;
 using System.Collections.ObjectModel;
@@ -8,11 +7,27 @@ namespace LabelGenGUI.ViewModels
 {
     public partial class PrinterListViewModel : ViewModelBase
     {
-        [ObservableProperty]
         private string newPrinterName = "";
+        public string NewPrinterName
+        {
+            get { return newPrinterName; }
+            set
+            {
+                SetProperty(ref newPrinterName, value);
+                AddPrinterCommand.NotifyCanExecuteChanged();
+            }
+        }
 
-        [ObservableProperty]
         private string newPrinterUri = "";
+        public string NewPrinterUri 
+        {
+            get { return newPrinterUri; }
+            set
+            {
+                SetProperty(ref newPrinterUri, value);
+                AddPrinterCommand.NotifyCanExecuteChanged();
+            }
+        }
 
         public ObservableCollection<Printer> Printers => SettingsService.Instance.Settings.Printers;
 
@@ -22,11 +37,10 @@ namespace LabelGenGUI.ViewModels
             set { SettingsService.Instance.Settings.CurrentPrinter = value; OnPropertyChanged(); }
         }
 
-        [DependsOn(nameof(NewPrinterName))]
-        [DependsOn(nameof(NewPrinterUri))]
-        public bool CanAddPrinter(object msg) => !string.IsNullOrEmpty(NewPrinterName) && Uri.IsWellFormedUriString(NewPrinterUri, UriKind.Absolute);
+        private bool CanAddPrinter() => !string.IsNullOrEmpty(NewPrinterName) && Uri.IsWellFormedUriString(NewPrinterUri, UriKind.Absolute);
 
-        public void AddPrinter()
+        [RelayCommand(CanExecute = nameof(CanAddPrinter))]
+        private void AddPrinter()
         {
             SettingsService.Instance.Settings.Printers.Add(new Printer { Name = NewPrinterName, Uri = NewPrinterUri });
         }
