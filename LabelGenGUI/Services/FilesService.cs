@@ -8,14 +8,14 @@ namespace LabelGenGUI.Services
 {
     public class FilesService(TopLevel target)
     {
-        private readonly TopLevel topLevel = target;
+        private readonly IStorageProvider storageProvider = target.StorageProvider;
         private readonly FilePickerFileType filePickerFileTypeJson = new("Proje Dosyası") { Patterns = ["*.json"], MimeTypes = ["application/json"] };
 
         public async Task<IStorageFile?> GetSaveFileAsync()
         {
-            if (topLevel.StorageProvider.CanSave)
+            if (storageProvider.CanSave)
             {
-                var file = await topLevel.StorageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
+                var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
                 { Title = "Proje dosyasını seçin", FileTypeChoices = [filePickerFileTypeJson], DefaultExtension = ".json", ShowOverwritePrompt = true });
                 return file ?? null;
             }
@@ -27,9 +27,9 @@ namespace LabelGenGUI.Services
 
         public async Task<IStorageFile?> GetOpenFileAsync()
         {
-            if (topLevel.StorageProvider.CanOpen)
+            if (storageProvider.CanOpen)
             {
-                var files = await topLevel.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
+                var files = await storageProvider.OpenFilePickerAsync(new FilePickerOpenOptions()
                 { Title = "Açılacak projeyi seçin", FileTypeFilter = [filePickerFileTypeJson] });
                 return files?.Count >= 1 ? files[0] : null;
             }
@@ -41,9 +41,9 @@ namespace LabelGenGUI.Services
 
         public async Task<string?> GetFolderPathAsync()
         {
-            if (topLevel.StorageProvider.CanPickFolder)
+            if (storageProvider.CanPickFolder)
             {
-                var folders = await topLevel.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions() { Title = "Klasör seçin" });
+                var folders = await storageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions() { Title = "Klasör seçin" });
                 return folders?.Count >= 1 ? folders[0].Path.AbsolutePath : null;
             }
             else
