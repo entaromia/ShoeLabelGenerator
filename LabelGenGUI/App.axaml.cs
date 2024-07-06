@@ -1,10 +1,12 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using LabelGenGUI.Services;
 using LabelGenGUI.ViewModels;
 using LabelGenGUI.Views;
+using System;
 
 namespace LabelGenGUI;
 
@@ -24,17 +26,15 @@ public partial class App : Application
             BindingPlugins.DataValidators.RemoveAt(0);
 
             desktop.Exit += DesktopOnExit;
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
+            var window = new MainWindow();
+            window.DataContext = new MainViewModel(new FilesService(window));
+            desktop.MainWindow = window;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };
+            var view = new MainView();
+            view.DataContext = new MainViewModel(new FilesService(TopLevel.GetTopLevel(view) ?? throw new NullReferenceException("Missing TopLevel on MainView")));
+            singleViewPlatform.MainView = new MainView();
         }
 
         SettingsService.Instance.Load();
