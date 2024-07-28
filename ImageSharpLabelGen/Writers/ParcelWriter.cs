@@ -65,7 +65,7 @@ namespace ImageSharpLabelGen.Writers
                 .DrawText(groupText.TextOptions, groupText.Text, CommonBrushes.Text)
                 .WritePairs(shoeCountsPair, shoeCountTextOptions, CommonBrushes.Text));
 
-            return new LabelImage() { Image = image , Copy = 1};
+            return new LabelImage(image) { Copy = 1 };
         }
     }
 }

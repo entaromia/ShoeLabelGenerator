@@ -69,7 +69,7 @@ namespace ImageSharpLabelGen.Writers
 
                 // we want to save a pic for every single pair
                 // if there is 3 42 shoes for example, we want to save 3 of the exact same picture
-                imageResults.Add(new LabelImage() { Image = image, Copy = Convert.ToInt32(shoe.Value), ShoeSize = Convert.ToInt32(shoe.Key) });
+                imageResults.Add(new LabelImage(image) {Copy = Convert.ToInt32(shoe.Value), ShoeSize = Convert.ToInt32(shoe.Key) });
             }
 
             return imageResults;
