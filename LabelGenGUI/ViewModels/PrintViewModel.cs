@@ -48,6 +48,15 @@ namespace LabelGenGUI.ViewModels
             }
         }
 
+        public async Task CalibratePrinter()
+        {
+            ProgressBarVisible = true;
+            ProgressMessage = "Etiket kalibrasyon...";
+            await Task.Delay(100);
+            await PrintService.Instance.CalibrateMedia();
+            ProgressMessage = "Kalibrasyon tamam.";
+        }
+
         public async Task<bool> PrintBoxJob()
         {
             string zplText = PrintService.Instance.BoxesToZpl(ShoeListService.Instance.GetItems());

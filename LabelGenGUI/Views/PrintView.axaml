@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
-             mc:Ignorable="d" Width="300"
+             mc:Ignorable="d" Width="310"
              x:Class="LabelGenGUI.Views.PrintView"
              x:DataType="vm:PrintViewModel" AttachedToVisualTree="GetTotalCounts">
 
@@ -13,6 +13,7 @@
     <StackPanel Orientation="Horizontal" Margin="16,5">
       <Button Content="Kutu Yazdır" Command="{Binding PrintBox}" Margin="0,0,5,0"/>
       <Button Content="Koli Yazdır" Command="{Binding PrintParcel}"/>
+      <Button Content="Kalibrasyon" Command="{Binding CalibratePrinter}"/>
     </StackPanel>
     <Border MinHeight="65">
       <StackPanel Orientation="Vertical" Margin="16,25">

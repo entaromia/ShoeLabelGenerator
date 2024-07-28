@@ -4,6 +4,7 @@ using ShoeLabelGen.Common;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LabelGenGUI.Services
 {
@@ -39,6 +40,12 @@ namespace LabelGenGUI.Services
         {
             Printer.PrinterUrl = SettingsService.Instance.Settings.CurrentPrinter!.Uri;
             return await Printer.Print(data);
+        }
+
+        public async Task<bool> CalibrateMedia()
+        {
+            Printer.PrinterUrl = SettingsService.Instance.Settings.CurrentPrinter!.Uri;
+            return await Printer.Print("~JC");
         }
     }
 }
