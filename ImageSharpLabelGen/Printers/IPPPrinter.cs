@@ -1,6 +1,4 @@
-﻿using SharpIpp.Models;
-using SharpIpp.Protocol.Models;
-using SharpIpp;
+﻿using MiniSharpIpp;
 using System.Text;
 
 namespace ImageSharpLabelGen.Printers
@@ -8,8 +6,7 @@ namespace ImageSharpLabelGen.Printers
     public class IPPPrinter : IPrintLabel
     {
         public string? PrinterUrl { get; set; }
-        private readonly DocumentAttributes rawDocumentAttribute = new() { DocumentFormat = "application/vnd.cups-raw" };
-        private readonly SharpIppClient client = new();
+        private readonly IppPrint printer = new();
 
         public async Task<bool> Print(string data)
         {
@@ -20,20 +17,14 @@ namespace ImageSharpLabelGen.Printers
 
             using MemoryStream stream = new(byteArray);
             var printerUri = new Uri(PrinterUrl);
-            var request = new PrintJobRequest
+            var request = new PrintJobRequest (printerUri, stream)
             {
-                PrinterUri = printerUri,
-                Document = stream,
-                DocumentAttributes = rawDocumentAttribute
+                DocumentFormat = "application/vnd.cups-raw"
             };
-#if false
-            File.WriteAllText("test.txt", data);
-            await Task.Delay(100);
-            return true;
-#else
-            var response = await client.PrintJobAsync(request);
 
-            var jobStatusRequest = new GetJobAttributesRequest
+            return await printer.PrintAsync(request);
+
+            /* var jobStatusRequest = new GetJobAttributesRequest
             {
                 JobId = response.JobId,
                 PrinterUri = printerUri,
@@ -46,10 +37,7 @@ namespace ImageSharpLabelGen.Printers
             {
                 await Task.Delay(300);
                 jobStatusResponse = await client.GetJobAttributesAsync(jobStatusRequest);
-            }
-
-            return true;
-#endif
+            } */
         }
     }
 }

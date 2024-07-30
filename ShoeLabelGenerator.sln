@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelGenGUI", "LabelGenGUI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoeLabelGen.Common", "ShoeLabelGen.Common\ShoeLabelGen.Common.csproj", "{C7D919C1-BBCE-4AEB-ABA5-BFB8BC3FAE41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelGenGUI.Generators", "LabelGenGUI.Generators\LabelGenGUI.Generators.csproj", "{DE4808DD-9BF9-4505-B342-5656A81E6096}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelGenGUI.Generators", "LabelGenGUI.Generators\LabelGenGUI.Generators.csproj", "{DE4808DD-9BF9-4505-B342-5656A81E6096}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniSharpIpp", "MiniSharpIpp\MiniSharpIpp.csproj", "{6F7609B4-BD66-475A-A906-2E400308695E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{DE4808DD-9BF9-4505-B342-5656A81E6096}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE4808DD-9BF9-4505-B342-5656A81E6096}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE4808DD-9BF9-4505-B342-5656A81E6096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F7609B4-BD66-475A-A906-2E400308695E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F7609B4-BD66-475A-A906-2E400308695E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F7609B4-BD66-475A-A906-2E400308695E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F7609B4-BD66-475A-A906-2E400308695E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
