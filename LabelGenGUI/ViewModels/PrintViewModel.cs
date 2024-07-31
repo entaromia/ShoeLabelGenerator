@@ -53,8 +53,12 @@ namespace LabelGenGUI.ViewModels
             ProgressBarVisible = true;
             ProgressMessage = "Etiket kalibrasyon...";
             await Task.Delay(100);
-            await PrintService.Instance.CalibrateMedia();
-            ProgressMessage = "Kalibrasyon tamam.";
+            var calibrated = await PrintService.Instance.CalibrateMedia();
+            if (calibrated)
+            {
+                ProgressMessage = "Kalibrasyon tamam.";
+                ProgressBarVisible = false;
+            }
         }
 
         public async Task<bool> PrintBoxJob()

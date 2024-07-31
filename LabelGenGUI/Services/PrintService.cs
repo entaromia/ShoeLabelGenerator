@@ -4,7 +4,6 @@ using ShoeLabelGen.Common;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LabelGenGUI.Services
 {

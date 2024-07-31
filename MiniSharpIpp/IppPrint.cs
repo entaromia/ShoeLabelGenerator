@@ -1,5 +1,4 @@
-﻿using System.Buffers.Binary;
-using System.Text;
+﻿using System.Text;
 
 namespace MiniSharpIpp
 {
@@ -25,12 +24,11 @@ namespace MiniSharpIpp
 
         private void WriteIppRequest(Stream stream, PrintJobRequest request)
         {
-            ArgumentNullException.ThrowIfNull(stream);
             var writer = new BinaryWriter(stream);
             
-            writer.Write(BinaryPrimitives.ReverseEndianness((short)0x0101)); // ipp version 1.1
-            writer.Write(BinaryPrimitives.ReverseEndianness((short)0x0002)); // print job operation
-            writer.Write(BinaryPrimitives.ReverseEndianness(1)); // request 1
+            writer.WriteBigEndian((short)0x0101); // ipp version 1.1
+            writer.WriteBigEndian((short)0x0002); // print job operation
+            writer.WriteBigEndian(1); // request 1
             writer.Write((byte)0x01); // operation group tag
             WriteAttribute(writer, 0x47, "attributes-charset", "utf-8");
             WriteAttribute(writer, 0x48, "attributes-natural-language", "en");
@@ -47,12 +45,12 @@ namespace MiniSharpIpp
 
         }
 
-        public void WriteAttribute(BinaryWriter writer, int tag, string name, string value)
+        public void WriteAttribute(BinaryWriter writer, byte tag, string name, string value)
         {
-            writer.Write((byte)tag);
-            writer.Write(BinaryPrimitives.ReverseEndianness((short)name.Length));
+            writer.Write(tag);
+            writer.WriteBigEndian((short)name.Length);
             writer.Write(Encoding.UTF8.GetBytes(name));
-            writer.Write(BinaryPrimitives.ReverseEndianness((short)value.Length));
+            writer.WriteBigEndian((short)value.Length);
             writer.Write(Encoding.UTF8.GetBytes(value));
         }
     }
