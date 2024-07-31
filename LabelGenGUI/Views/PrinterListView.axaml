@@ -6,7 +6,7 @@
              x:Class="LabelGenGUI.Views.PrinterListView"
              xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
              x:DataType="vm:PrinterListViewModel">
-  <StackPanel Orientation="Vertical">
+  <StackPanel Orientation="Vertical" x:Name="Root">
     <TextBlock Text="{Binding CurrentPrinter.Name, StringFormat='Yazıcı: {0}'}" FontSize="16" Margin="16,0,0,10"/>
     <DockPanel Height="16" Margin="0,5,0,0">
       <Separator Width="15" Margin="16,0,2,0"/>
@@ -28,17 +28,21 @@
               <StackPanel Orientation="Horizontal">
                 <TextBlock Text="{Binding Name}"/>
                 <TextBlock Text="{Binding Uri, StringFormat=', Adres: {0}'}"/>
+                <StackPanel.ContextFlyout>
+                  <MenuFlyout>
+                    <MenuItem Header="Sil" Command="{Binding #Root.((vm:PrinterListViewModel)DataContext).RemovePrinterCommand}" />
+                  </MenuFlyout>
+                </StackPanel.ContextFlyout>
               </StackPanel>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
-    <StackPanel Orientation="Vertical">
-      <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,0" Watermark="Yazıcı ismi girin" />
-      <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
-      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Content="Ekle" Command="{Binding AddPrinterCommand}" Margin="0,0,8,8"/>
-        <Button Content="Sil" Command="{Binding RemovePrinter}" CommandParameter="{Binding ElementName=PrinterList, Path=SelectedItem}" Margin="0,0,0,8"/>
-      </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Vertical">
+          <TextBox Text="{Binding NewPrinterName}" FontSize="16" Margin="16,0" Watermark="Yazıcı ismi girin" />
+          <TextBox Text="{Binding NewPrinterUri}" FontSize="16" Margin="16,8" Watermark="Yazıcı adresi girin" />
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Ekle" Command="{Binding AddPrinterCommand}" Margin="0,0,0,8"/>
+          </StackPanel>
     </StackPanel>
   </StackPanel>
 </UserControl>

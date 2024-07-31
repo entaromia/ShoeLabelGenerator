@@ -45,13 +45,12 @@ namespace LabelGenGUI.ViewModels
             SettingsService.Instance.Settings.Printers.Add(new Printer { Name = NewPrinterName, Uri = NewPrinterUri });
         }
 
-        public bool CanRemovePrinter(object msg) => msg is not null;
+        [RelayCommand]
         public void RemovePrinter()
         {
             if (CurrentPrinter is not null)
             {
                 SettingsService.Instance.Settings.Printers.Remove(CurrentPrinter);
-
             }
         }
     }

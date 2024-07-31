@@ -3,11 +3,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
+             xmlns:cv="clr-namespace:LabelGenGUI.Converters"
              mc:Ignorable="d"
              x:Class="LabelGenGUI.Views.ShoeListView" 
              x:DataType="vm:ShoeListViewModel">
-  <StackPanel Orientation="Vertical">
-    <ListBox Name="ShoeList" SelectionMode="Toggle" ItemsSource="{Binding ListItems}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
+  <StackPanel Orientation="Vertical" x:Name="Root">
+    <StackPanel.Resources>
+      <cv:ShoeCountListToStringConverter x:Key="ShoeCountListToStringConverter" />
+    </StackPanel.Resources>
+    <ListBox Name="ShoeList" ItemsSource="{Binding ListItems}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
       <ListBox.Styles>
         <Style Selector="ListBoxItem">
           <Setter Property="BorderBrush" Value="Black" />
@@ -17,6 +21,14 @@
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Vertical">
+            <StackPanel.ContextFlyout>
+              <MenuFlyout>
+                <MenuItem Header="Sil" Command="{Binding #Root.((vm:ShoeListViewModel)DataContext).DeleteItem}" CommandParameter="{Binding ElementName=ShoeList, Path=SelectedIndex}"/>
+              </MenuFlyout>
+            </StackPanel.ContextFlyout>
+            <ToolTip.Tip>
+                <TextBlock Text="{Binding ShoeCounts, Converter={StaticResource ShoeCountListToStringConverter}}" />
+            </ToolTip.Tip>
             <StackPanel Orientation="Horizontal">
               <TextBlock Text="{Binding Brand, StringFormat='Marka: {0},'}" Margin="0,0,5,0"/>
               <TextBlock Text="{Binding ReceiptNo, StringFormat='Fiş: {0}'}" Margin="0,0,5,0"/>
@@ -32,7 +44,6 @@
     </ListBox>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
       <Button VerticalAlignment="Bottom" Content="Ekle" Margin="10" Command="{Binding AddItem}"/>
-      <Button VerticalAlignment="Bottom" Content="Sil" Margin="10" Command="{Binding DeleteItem}" CommandParameter="{Binding ElementName=ShoeList, Path=SelectedIndex}"/>
     </StackPanel>
   </StackPanel>
 </UserControl>
