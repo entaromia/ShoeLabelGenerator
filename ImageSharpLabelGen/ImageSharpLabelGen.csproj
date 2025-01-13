@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.4" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.5" />
     <ProjectReference Include="..\ShoeLabelGen.Common\ShoeLabelGen.Common.csproj" />
     <ProjectReference Include="..\MiniSharpIpp\MiniSharpIpp.csproj" />
   </ItemGroup>
