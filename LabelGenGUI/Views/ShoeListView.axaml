@@ -11,7 +11,7 @@
     <StackPanel.Resources>
       <cv:ShoeCountListToStringConverter x:Key="ShoeCountListToStringConverter" />
     </StackPanel.Resources>
-    <ListBox Name="ShoeList" ItemsSource="{Binding ListItems}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
+    <ListBox Name="ShoeList" ItemsSource="{Binding ListItems}" SelectedIndex="{Binding SelectedIndex}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
       <ListBox.Styles>
         <Style Selector="ListBoxItem">
           <Setter Property="BorderBrush" Value="Black" />
@@ -23,7 +23,7 @@
           <StackPanel Orientation="Vertical">
             <StackPanel.ContextFlyout>
               <MenuFlyout>
-                <MenuItem Header="Sil" Command="{Binding #Root.((vm:ShoeListViewModel)DataContext).DeleteItem}" CommandParameter="{Binding ElementName=ShoeList, Path=SelectedIndex}"/>
+                <MenuItem Header="Sil" Command="{Binding #Root.((vm:ShoeListViewModel)DataContext).DeleteItemCommand}"/>
               </MenuFlyout>
             </StackPanel.ContextFlyout>
             <ToolTip.Tip>
@@ -44,6 +44,8 @@
     </ListBox>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
       <Button VerticalAlignment="Bottom" Content="Ekle" Margin="10" Command="{Binding AddItem}"/>
+      <Button VerticalAlignment="Bottom" Content="Kutu Yazdır" Margin="10" Command="{Binding PrintBoxItemCommand}"/>
+      <Button VerticalAlignment="Bottom" Content="Koli Yazdır" Margin="10" Command="{Binding PrintParcelItemCommand}"/>
     </StackPanel>
   </StackPanel>
 </UserControl>
