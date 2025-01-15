@@ -25,7 +25,7 @@ namespace MiniSharpIpp
         private void WriteIppRequest(Stream stream, PrintJobRequest request)
         {
             var writer = new BinaryWriter(stream);
-            
+
             writer.WriteBigEndian((short)0x0101); // ipp version 1.1
             writer.WriteBigEndian((short)0x0002); // print job operation
             writer.WriteBigEndian(1); // request 1

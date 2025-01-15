@@ -19,7 +19,7 @@ namespace LabelGenGUI.ViewModels
         }
 
         private string newPrinterUri = "";
-        public string NewPrinterUri 
+        public string NewPrinterUri
         {
             get { return newPrinterUri; }
             set

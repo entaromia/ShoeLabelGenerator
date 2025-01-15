@@ -61,7 +61,7 @@ namespace ImageSharpLabelGen.Helpers
 
                 currentShoeNumber++;
             }
-            
+
             return keyValuePairs;
         }
 

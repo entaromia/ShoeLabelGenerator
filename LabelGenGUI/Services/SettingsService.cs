@@ -37,7 +37,7 @@ namespace LabelGenGUI.Services
     {
         private readonly string filePath;
 
-        public static SettingsService Instance { get; set; } = 
+        public static SettingsService Instance { get; set; } =
             new(Path.Join(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "LabelGenGUI",

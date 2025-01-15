@@ -56,7 +56,7 @@ namespace ImageSharpLabelGen.Output
         {
             StringBuilder zplStrings = new(ResetLabelFormatZpl);
             var labels = BoxWriter.Write(item);
-            
+
             foreach (var label in labels) using (label)
                 {
                     zplStrings.Append(label.SaveAsRawZpl(LabelType.Box));

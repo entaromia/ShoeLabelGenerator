@@ -1,5 +1,4 @@
 ﻿using ImageSharpLabelGen.Output;
-using ImageSharpLabelGen.Writers;
 using ShoeLabelGen.Common;
 
 namespace ImageSharpLabelGen.Helpers

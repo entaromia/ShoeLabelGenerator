@@ -17,7 +17,7 @@ namespace ImageSharpLabelGen.Printers
 
             using MemoryStream stream = new(byteArray);
             var printerUri = new Uri(PrinterUrl);
-            var request = new PrintJobRequest (printerUri, stream)
+            var request = new PrintJobRequest(printerUri, stream)
             {
                 DocumentFormat = "application/vnd.cups-raw"
             };

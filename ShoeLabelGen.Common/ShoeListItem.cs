@@ -6,8 +6,8 @@ namespace ShoeLabelGen.Common
     {
         public ShoeListItem() { }
 
-        public ShoeListItem(ShoeListItem item) 
-        { 
+        public ShoeListItem(ShoeListItem item)
+        {
             Brand = item.Brand;
             Quality = item.Quality;
             Color = item.Color;
