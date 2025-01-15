@@ -67,7 +67,10 @@ namespace ImageSharpLabelGen.Output
         public static string ParcelToZpl(this ShoeListItem item)
         {
             StringBuilder zplStrings = new(ResetLabelFormatZpl);
-            if (item.Total > 12 && item.Total < 24)
+            // The maximum parcel size we have is 12
+            // divide into two parcels if more than that
+            // If it's more than 2 * 12, pass it directly without dividing
+            if (item.Total > 12 && item.Total <= 24)
             {
                 var lists = ShoeCountDivider.DivideShoeList(item);
                 int i = 0;
