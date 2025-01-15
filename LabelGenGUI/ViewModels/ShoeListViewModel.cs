@@ -15,9 +15,9 @@ namespace LabelGenGUI.ViewModels
         private int selectedIndex;
 
         /// <summary>
-        /// Do not allow operations if no item is selected
+        /// Do not allow operations if no item is selected or there is no item in the list
         /// </summary>
-        public bool CanOperateOnItem() => SelectedIndex >= 0;
+        public bool CanOperateOnItem() => SelectedIndex >= 0 && ListItems.Count > 0;
 
         [RelayCommand(CanExecute = nameof(CanOperateOnItem))]
         public void DeleteItem()
