@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LabelGenGUI.Generators", "L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniSharpIpp", "MiniSharpIpp\MiniSharpIpp.csproj", "{6F7609B4-BD66-475A-A906-2E400308695E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelGenGUI.Android", "LabelGenGUI.Android\LabelGenGUI.Android.csproj", "{11417A59-6CD5-4DFD-A096-0655055D1009}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelGenGUI.Desktop", "LabelGenGUI.Desktop\LabelGenGUI.Desktop.csproj", "{A922E941-79C0-4BD6-807E-96716FEA7241}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,16 @@ Global
 		{6F7609B4-BD66-475A-A906-2E400308695E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F7609B4-BD66-475A-A906-2E400308695E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F7609B4-BD66-475A-A906-2E400308695E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11417A59-6CD5-4DFD-A096-0655055D1009}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{A922E941-79C0-4BD6-807E-96716FEA7241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A922E941-79C0-4BD6-807E-96716FEA7241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A922E941-79C0-4BD6-807E-96716FEA7241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A922E941-79C0-4BD6-807E-96716FEA7241}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

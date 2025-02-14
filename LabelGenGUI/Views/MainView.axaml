@@ -14,7 +14,7 @@
     <vm:MainViewModel/>
   </Design.DataContext>
   <Grid RowDefinitions="22,*">
-    <Menu Grid.Row="0" Height="22" Margin="0,2,0,2">
+    <Menu Grid.Row="0" Height="22" Margin="{OnPlatform '0,2,0,2', Android='8,50,8,8'}">
       <MenuItem Header="_Dosya">
         <MenuItem Header="Yeni Proje" Command="{Binding NewProjectCommand}"/>
         <MenuItem Header="Proje Aç" Command="{Binding OpenProjectCommand}"/>

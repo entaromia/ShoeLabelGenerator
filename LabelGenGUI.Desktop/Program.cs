@@ -1,7 +1,8 @@
-﻿using Avalonia;
-using System;
+﻿using System;
 
-namespace LabelGenGUI;
+using Avalonia;
+
+namespace LabelGenGUI.Desktop;
 
 class Program
 {

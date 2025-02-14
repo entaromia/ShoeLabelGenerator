@@ -29,20 +29,31 @@ public partial class MainViewModel(FilesService filesService) : ViewModelBase
     [RelayCommand]
     private async Task NewProject()
     {
-        var file = await filesService.GetSaveFileAsync();
-        if (file is not null)
+        if (OperatingSystem.IsAndroid())
         {
             CloseProject();
-            ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
-            ShoeListService.Instance.ProjectName = file.Name[..file.Name.IndexOf(".json")];
-            if (!NavigationService.Instance.ContentHasPage)
-                GoToListView();
+            ShoeListService.Instance.CurrentFile = "test";
+            ShoeListService.Instance.ProjectName = "test";
         }
+        else
+        {
+            var file = await filesService.GetSaveFileAsync();
+            if (file is not null)
+            {
+                CloseProject();
+                ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
+                ShoeListService.Instance.ProjectName = file.Name.Contains(".json") ? file.Name[..file.Name.IndexOf(".json")] : file.Name;
+            }
+        }
+
+        if (!NavigationService.Instance.ContentHasPage)
+                GoToListView();
     }
 
     [RelayCommand]
     private async Task OpenProject()
     {
+        if (OperatingSystem.IsAndroid()) return;
         var file = await filesService.GetOpenFileAsync();
         if (file is not null)
         {

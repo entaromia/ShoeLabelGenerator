@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using LabelGenGUI.Services;
 using ShoeLabelGen.Common;
+using System;
 
 namespace LabelGenGUI.ViewModels
 {
@@ -47,7 +48,7 @@ namespace LabelGenGUI.ViewModels
         }
 
         [RelayCommand]
-        private void AddNewItem()
+        public void AddNewItem()
         {
             // Validate inputs
             if (ShoeListItem.Brand is null ||
@@ -55,13 +56,14 @@ namespace LabelGenGUI.ViewModels
                string.IsNullOrEmpty(ShoeListItem.Color) ||
                string.IsNullOrEmpty(ShoeListItem.ReceiptNo))
             {
-                ShowDialog(ErrorMessage.EmptyInputFields);
+                // FIXME: Replace it with something else for Android compat
+                if (!OperatingSystem.IsAndroid())
+                    ShowDialog(ErrorMessage.EmptyInputFields);
+                return;
             }
-            else
-            {
-                ShoeListService.Instance.AddItem(new ShoeListItem(ShoeListItem));
-                NavigationService.Instance.NavigateBack();
-            }
+
+            ShoeListService.Instance.AddItem(new ShoeListItem(ShoeListItem));
+            NavigationService.Instance.NavigateBack();
         }
     }
 }

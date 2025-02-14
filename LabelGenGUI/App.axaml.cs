@@ -19,12 +19,12 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        // Line below is needed to remove Avalonia data validation.
+        // Without this line you will get duplicate validations from both Avalonia and CT
+        BindingPlugins.DataValidators.RemoveAt(0);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Line below is needed to remove Avalonia data validation.
-            // Without this line you will get duplicate validations from both Avalonia and CT
-            BindingPlugins.DataValidators.RemoveAt(0);
-
             desktop.Exit += DesktopOnExit;
             var window = new MainWindow();
             window.DataContext = new MainViewModel(new FilesService(window));
@@ -33,8 +33,8 @@ public partial class App : Application
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             var view = new MainView();
+            singleViewPlatform.MainView = view;
             view.DataContext = new MainViewModel(new FilesService(TopLevel.GetTopLevel(view) ?? throw new NullReferenceException("Missing TopLevel on MainView")));
-            singleViewPlatform.MainView = new MainView();
         }
 
         SettingsService.Instance.Load();
