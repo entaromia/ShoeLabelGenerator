@@ -21,7 +21,8 @@
           <Setter Property="ShowButtonSpinner" Value="False" />
           <Setter Property="AllowSpin" Value="False" />
           <Setter Property="FontSize" Value="16" />
-        </Style>
+          <Setter Property="(TextInputOptions.ContentType)" Value="Number" />
+          </Style>
       </Grid.Styles>
       <Grid.Resources>
         <cv:EmptyToZeroConverter x:Key="EmptyToZeroConverter" />
