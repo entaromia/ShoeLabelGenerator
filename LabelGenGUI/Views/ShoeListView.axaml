@@ -7,11 +7,11 @@
              mc:Ignorable="d"
              x:Class="LabelGenGUI.Views.ShoeListView" 
              x:DataType="vm:ShoeListViewModel">
-  <StackPanel Orientation="Vertical" x:Name="Root">
-    <StackPanel.Resources>
+  <Grid x:Name="Root" RowDefinitions="*,50">
+    <Grid.Resources>
       <cv:ShoeCountListToStringConverter x:Key="ShoeCountListToStringConverter" />
-    </StackPanel.Resources>
-    <ListBox Name="ShoeList" ItemsSource="{Binding ListItems}" SelectedIndex="{Binding SelectedIndex}" Height="380" MinWidth="350" MaxWidth="550" HorizontalAlignment="Right" Margin="10">
+    </Grid.Resources>
+    <ListBox Grid.Row="0" Name="ShoeList" ItemsSource="{Binding ListItems}" MinWidth="0" SelectedIndex="{Binding SelectedIndex}" MinHeight="100" Margin="10">
       <ListBox.Styles>
         <Style Selector="ListBoxItem">
           <Setter Property="BorderBrush" Value="Black" />
@@ -42,10 +42,10 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-      <Button VerticalAlignment="Bottom" Content="Ekle" Margin="10" Command="{Binding AddItem}"/>
-      <Button VerticalAlignment="Bottom" Content="Kutu Yazdır" Margin="10" Command="{Binding PrintBoxItemCommand}"/>
-      <Button VerticalAlignment="Bottom" Content="Koli Yazdır" Margin="10" Command="{Binding PrintParcelItemCommand}"/>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Height="50">
+      <Button Content="Ekle" Margin="10,0,10,10" Command="{Binding AddItem}"/>
+      <Button Content="Kutu Yazdır" Margin="10,0,10,10" Command="{Binding PrintBoxItemCommand}"/>
+      <Button Content="Koli Yazdır" Margin="10,0,10,10" Command="{Binding PrintParcelItemCommand}"/>
     </StackPanel>
-  </StackPanel>
+  </Grid>
 </UserControl>

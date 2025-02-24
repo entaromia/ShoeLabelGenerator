@@ -3,20 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:LabelGenGUI.ViewModels"
-             mc:Ignorable="d" Width="310"
+             mc:Ignorable="d" MinWidth="300" Design.Width="300"
              x:Class="LabelGenGUI.Views.PrintView"
              x:DataType="vm:PrintViewModel" AttachedToVisualTree="GetTotalCounts">
 
-  <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-    <TextBlock Text="{Binding TotalBox, StringFormat='Toplam Kutu Barkod: {0}'}" FontSize="16" Margin="16,8,0,10"/>
-    <TextBlock Text="{Binding TotalParcel, StringFormat='Toplam Koli Barkod: {0}'}" FontSize="16" Margin="16,0,0,10" />
-    <StackPanel Orientation="Horizontal" Margin="16,5">
-      <Button Content="Kutu Yazdır" Command="{Binding PrintBox}" Margin="0,0,5,0"/>
-      <Button Content="Koli Yazdır" Command="{Binding PrintParcel}"/>
-      <Button Content="Kalibrasyon" Command="{Binding CalibratePrinter}"/>
+  <StackPanel>
+    <StackPanel Orientation="Vertical">
+      <TextBlock Text="{Binding TotalBox, StringFormat='Toplam Kutu Barkod: {0}'}" FontSize="16" Margin="16,8"/>
+      <TextBlock Text="{Binding TotalParcel, StringFormat='Toplam Koli Barkod: {0}'}" FontSize="16" Margin="16,0" />
     </StackPanel>
+    <DockPanel HorizontalAlignment="Center" Margin="4,5">
+      <Button Content="Kutu Yazdır" Margin="0,0,4,0" Command="{Binding PrintBox}"/>
+      <Button Content="Koli Yazdır" Margin="0,0,4,0" Command="{Binding PrintParcel}"/>
+      <Button Content="Kalibrasyon" Command="{Binding CalibratePrinter}"/>
+    </DockPanel>
     <Border MinHeight="65">
-      <StackPanel Orientation="Vertical" Margin="16,25">
+      <StackPanel Orientation="Vertical" Margin="16,20">
         <ProgressBar IsIndeterminate="True" Margin="0,0,0,5" IsVisible="{Binding ProgressBarVisible}"/>
         <TextBlock FontSize="16" Text="{Binding ProgressMessage}" />
       </StackPanel>
