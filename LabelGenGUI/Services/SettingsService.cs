@@ -35,33 +35,36 @@ namespace LabelGenGUI.Services
 
     public class SettingsService
     {
-        private readonly string filePath;
+        private readonly string directory;
+        private readonly string absolutePath;
 
         public static SettingsService Instance { get; set; } =
             new(Path.Join(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "LabelGenGUI",
-                "settings.json"));
+                "LabelGenGUI"),
+                "settings.json");
 
         public Settings Settings { get; private set; }
 
-        public SettingsService(string filePath)
+        public SettingsService(string directory, string file)
         {
-            this.filePath = filePath;
+            this.directory = directory;
+            absolutePath = Path.Join(directory, file);
             Settings = Load();
         }
 
         public void Save()
         {
-            using var stream = File.Open(filePath, FileMode.Create);
+            Directory.CreateDirectory(directory);
+            using var stream = File.Open(absolutePath, FileMode.Create);
             JsonSerializer.Serialize(stream, Settings, SettingsContext.Default.Settings);
         }
 
         public Settings Load()
         {
-            if (File.Exists(filePath))
+            if (File.Exists(absolutePath))
             {
-                using var stream = File.OpenRead(filePath);
+                using var stream = File.OpenRead(absolutePath);
                 if (stream.Length != 0)
                 {
                     try
@@ -70,6 +73,12 @@ namespace LabelGenGUI.Services
                     }
                     catch { Console.WriteLine("Settings file is not valid, will be overwritten on close!"); return new(); }
                 }
+            }
+            else
+            {
+                Directory.CreateDirectory(directory);
+                File.Create(absolutePath).Close();
+                return new();
             }
             return new();
         }

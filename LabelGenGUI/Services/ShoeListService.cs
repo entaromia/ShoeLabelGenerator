@@ -1,7 +1,8 @@
-﻿using ShoeLabelGen.Common;
+﻿using Avalonia.Platform.Storage;
+using ShoeLabelGen.Common;
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -10,8 +11,7 @@ namespace LabelGenGUI.Services
 {
     internal class ShoeListData
     {
-        public int FileVersion { get; set; } = 1;
-        public string? ProjectName { get; set; }
+        public int FileVersion { get; set; } = 2;
         public ObservableCollection<ShoeListItem> ShoeItems { get; set; } = [];
     }
 
@@ -22,18 +22,12 @@ namespace LabelGenGUI.Services
 
     public class ShoeListService
     {
-        public string? CurrentFile { get; set; }
+        public IStorageFile? CurrentFile { get; set; }
         public static ShoeListService Instance { get; } = new();
 
         private readonly ShoeListData shoeListData = new();
         public ObservableCollection<ShoeListItem> GetItems() => shoeListData.ShoeItems;
         public int ItemCount => shoeListData.ShoeItems.Count;
-
-        public string? ProjectName
-        {
-            get => shoeListData.ProjectName;
-            set => shoeListData.ProjectName = value;
-        }
 
         public void AddItem(ShoeListItem item)
         {
@@ -69,32 +63,39 @@ namespace LabelGenGUI.Services
 
         public async Task SaveToFileAsync()
         {
-            var stream = File.Open(CurrentFile!, FileMode.Create);
+            var stream = await CurrentFile!.OpenWriteAsync(); // opens in FileMode.Create
             await JsonSerializer.SerializeAsync(stream, shoeListData, ShoeListDataContext.Default.ShoeListData);
             stream.Close();
         }
 
-        public async Task OpenFileAsync()
+        public async Task<bool> OpenFileAsync()
         {
-            var stream = File.Open(CurrentFile!, FileMode.OpenOrCreate);
-            var temp = await JsonSerializer.DeserializeAsync(stream, ShoeListDataContext.Default.ShoeListData);
-            if (temp is not null)
+            var stream = await CurrentFile!.OpenReadAsync();
+            try
             {
-                shoeListData.FileVersion = temp.FileVersion > 1 ? temp.FileVersion : 1;
-                shoeListData.ProjectName = temp.ProjectName ?? "";
-                shoeListData.ShoeItems.Clear();
-                foreach (var item in temp.ShoeItems)
+                var temp = await JsonSerializer.DeserializeAsync(stream, ShoeListDataContext.Default.ShoeListData);
+                if (temp is not null)
                 {
-                    shoeListData.ShoeItems.Add(item);
+                    shoeListData.FileVersion = temp.FileVersion > 2 ? temp.FileVersion : 2;
+                    shoeListData.ShoeItems.Clear();
+                    foreach (var item in temp.ShoeItems)
+                    {
+                        shoeListData.ShoeItems.Add(item);
+                    }
                 }
+                stream.Close();
+                return true;
             }
-            stream.Close();
+            catch
+            {
+                Debug.WriteLine("Unsupported json file, do nothing");
+                return false;
+            }
         }
 
         public void CloseProject()
         {
             shoeListData.ShoeItems.Clear();
-            shoeListData.ProjectName = null;
             CurrentFile = null;
         }
     }

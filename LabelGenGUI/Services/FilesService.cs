@@ -16,7 +16,7 @@ namespace LabelGenGUI.Services
             if (storageProvider.CanSave)
             {
                 var file = await storageProvider.SaveFilePickerAsync(new FilePickerSaveOptions()
-                { Title = "Proje dosyasını seçin", FileTypeChoices = [filePickerFileTypeJson], DefaultExtension = ".json", ShowOverwritePrompt = true });
+                { Title = "Proje dosyasını seçin", FileTypeChoices = [filePickerFileTypeJson], SuggestedFileName = "proje", DefaultExtension = ".json", ShowOverwritePrompt = true });
                 return file ?? null;
             }
             else

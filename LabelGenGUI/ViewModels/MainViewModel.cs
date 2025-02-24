@@ -29,39 +29,32 @@ public partial class MainViewModel(FilesService filesService) : ViewModelBase
     [RelayCommand]
     private async Task NewProject()
     {
-        if (OperatingSystem.IsAndroid())
+        CloseProject();
+        var file = await filesService.GetSaveFileAsync();
+        if (file is not null)
         {
-            CloseProject();
-            ShoeListService.Instance.CurrentFile = "test";
-            ShoeListService.Instance.ProjectName = "test";
-        }
-        else
-        {
-            var file = await filesService.GetSaveFileAsync();
-            if (file is not null)
-            {
-                CloseProject();
-                ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
-                ShoeListService.Instance.ProjectName = file.Name.Contains(".json") ? file.Name[..file.Name.IndexOf(".json")] : file.Name;
-            }
-        }
-
-        if (!NavigationService.Instance.ContentHasPage)
+            ShoeListService.Instance.CurrentFile = file;
+            if (!NavigationService.Instance.ContentHasPage)
                 GoToListView();
+        }
     }
 
     [RelayCommand]
     private async Task OpenProject()
     {
-        if (OperatingSystem.IsAndroid()) return;
         var file = await filesService.GetOpenFileAsync();
         if (file is not null)
         {
             CloseProject();
-            ShoeListService.Instance.CurrentFile = file.Path.AbsolutePath;
-            await ShoeListService.Instance.OpenFileAsync();
-            if (!NavigationService.Instance.ContentHasPage)
-                GoToListView();
+            ShoeListService.Instance.CurrentFile = file;
+
+            // Fail silently if the file is unsupported
+            var result = await ShoeListService.Instance.OpenFileAsync();
+            if (result)
+            {   
+                if (!NavigationService.Instance.ContentHasPage)
+                    GoToListView();
+            }
         }
     }
 
