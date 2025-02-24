@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace MiniSharpIpp
 {
@@ -11,15 +12,21 @@ namespace MiniSharpIpp
             WriteIppRequest(stream, request);
             stream.Seek(0, SeekOrigin.Begin);
 
-            // File.WriteAllBytes("test.bin", stream.ToArray());
-
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, request.PrinterUri)
             {
                 Content = new StreamContent(stream) { Headers = { { "Content-Type", "application/ipp" } } }
             };
 
-            var response = await httpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
-            return response.StatusCode == System.Net.HttpStatusCode.OK;
+            try
+            {
+                var response = await httpClient.SendAsync(httpRequest, cancellationToken).ConfigureAwait(false);
+                return response.StatusCode == System.Net.HttpStatusCode.OK;
+            }
+            catch (HttpRequestException ex)
+            {
+                Debug.Write(ex.ToString());
+            }
+            return false;
         }
 
         private void WriteIppRequest(Stream stream, PrintJobRequest request)
