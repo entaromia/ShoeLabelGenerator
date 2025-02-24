@@ -18,9 +18,11 @@ namespace ImageSharpLabelGen.Writers
         private const int imageWidth = 1198; // 15cm in 203dpi
         private const int imageHeight = 799; // 10cm in 203dpi
 
+
         // We just want a larger text for the brand name, same for everything else
-        public static Font BodyFont { get; set; } = SystemFonts.CreateFont("Arial", 50, FontStyle.Bold);
-        public static Font BrandFont { get; set; } = SystemFonts.CreateFont("Arial", 85, FontStyle.Bold);
+        private static FontFamily family = new FontCollection().Add(new MemoryStream(Fonts.LiberationSansBold));
+        public static Font BodyFont { get; set; } = family.CreateFont(50, FontStyle.Bold);
+        public static Font BrandFont { get; set; } = family.CreateFont(85, FontStyle.Bold);
 
         // making sure each field has the same length so the ':' symbol always stays at the same place between lines
         private static readonly string qualityText = "KALİTE".PadRight(14, ' ');
