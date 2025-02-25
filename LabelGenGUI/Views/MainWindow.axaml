@@ -8,6 +8,6 @@
         x:Class="LabelGenGUI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="LabelGenGUI" CanResize="True" WindowStartupLocation="CenterScreen"
-        MinHeight="300" MinWidth="300" Width="300" Height="400">
+        MinHeight="300" MinWidth="300" Width="330" Height="480">
     <views:MainView />
 </Window>
