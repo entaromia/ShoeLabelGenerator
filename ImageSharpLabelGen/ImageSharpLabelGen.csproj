@@ -13,18 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Fonts.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Fonts.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Fonts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Fonts.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LiberationSansBold.ttf" />
   </ItemGroup>
 
 </Project>

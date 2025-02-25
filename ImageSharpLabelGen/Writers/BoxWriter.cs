@@ -6,6 +6,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using System.Reflection;
 
 namespace ImageSharpLabelGen.Writers
 {
@@ -19,7 +20,7 @@ namespace ImageSharpLabelGen.Writers
         private const int imageHeight = 319; // 4cm in 203dpi
 
         // We just want a larger text for the brand name, same for everything else
-        private static FontFamily family = new FontCollection().Add(new MemoryStream(Fonts.LiberationSansBold));
+        private static FontFamily family = new FontCollection().Add(Assembly.GetExecutingAssembly().GetManifestResourceStream("ImageSharpLabelGen.Resources.LiberationSansBold.ttf") ?? throw new NullReferenceException("Font file LiberationSansBold.ttf not found in resources!"));
         public static Font BodyFont { get; set; } = family.CreateFont(35, FontStyle.Bold);
         public static Font BrandFont { get; set; } = family.CreateFont(45, FontStyle.Bold);
 
