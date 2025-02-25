@@ -29,6 +29,8 @@ namespace LabelGenGUI.Services
         public ObservableCollection<ShoeListItem> GetItems() => shoeListData.ShoeItems;
         public int ItemCount => shoeListData.ShoeItems.Count;
 
+        public bool ProjectOpen { get; set;}
+
         public void AddItem(ShoeListItem item)
         {
             shoeListData.ShoeItems.Add(item);
@@ -84,6 +86,7 @@ namespace LabelGenGUI.Services
                     }
                 }
                 stream.Close();
+                ProjectOpen = true;
                 return true;
             }
             catch
@@ -97,6 +100,7 @@ namespace LabelGenGUI.Services
         {
             shoeListData.ShoeItems.Clear();
             CurrentFile = null;
+            ProjectOpen = false;
         }
     }
 }

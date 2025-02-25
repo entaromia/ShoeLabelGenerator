@@ -13,7 +13,7 @@ public partial class MainViewModel(FilesService filesService) : ViewModelBase
         NavigationService.Instance.Navigate(name);
     }
 
-    private bool ProjectOpen() => ShoeListService.Instance.CurrentFile is not null;
+    private bool ProjectOpen() => ShoeListService.Instance.ProjectOpen;
     private bool CanSave() => ShoeListService.Instance.ItemCount > 0;
 
     [RelayCommand(CanExecute = nameof(ProjectOpen))]
@@ -21,22 +21,20 @@ public partial class MainViewModel(FilesService filesService) : ViewModelBase
     {
         if (ShoeListService.Instance.CurrentFile is null)
         {
-            throw new NullReferenceException("Missing current file path");
+            var file = await filesService.GetSaveFileAsync();
+            if (file is not null)
+                ShoeListService.Instance.CurrentFile = file;
         }
         await ShoeListService.Instance.SaveToFileAsync();
     }
 
     [RelayCommand]
-    private async Task NewProject()
+    private void NewProject()
     {
         CloseProject();
-        var file = await filesService.GetSaveFileAsync();
-        if (file is not null)
-        {
-            ShoeListService.Instance.CurrentFile = file;
-            if (!NavigationService.Instance.ContentHasPage)
-                GoToListView();
-        }
+        ShoeListService.Instance.ProjectOpen = true;
+        if (!NavigationService.Instance.ContentHasPage)
+            GoToListView();
     }
 
     [RelayCommand]
@@ -66,10 +64,7 @@ public partial class MainViewModel(FilesService filesService) : ViewModelBase
     }
 
     [RelayCommand(CanExecute = nameof(CanSave))]
-    private void Print()
-    {
-        NavigateTo(NavigationService.Pages.PrintPage);
-    }
+    private void Print() => NavigateTo(NavigationService.Pages.PrintPage);
 
     [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsPicture()
