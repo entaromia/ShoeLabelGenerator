@@ -19,10 +19,9 @@ This application generates standardized product labels from user input and sends
 * **Custom ZPL Engine:** Features a **custom image-to-ZPL converter**, eliminating dependencies on paid/proprietary drivers.
 * **Network Printing:** Implements raw **IPP (Internet Printing Protocol)** for driverless communication with Zebra printers over local networks.
 * **List Management:** capable of batch-processing hundreds of labels in a single print job.
-* **Localization:** Interface custom-built in Turkish for local workers.
 
 ## 🛠️ Technical Details
-* **NativeAOT Compilation:** Optimized using .NET Native Ahead-of-Time (AOT) compilation. This reduces startup time significantly and eliminates the need for the .NET Runtime to be installed.
+* **NativeAOT Compilation:** Supports .NET Native Ahead-of-Time (AOT) compilation. This reduces startup time significantly and eliminates the need for the .NET Runtime to be installed.
 * **Image Processing:** Utilizes **ImageSharp** for label rendering before conversion.
 * **Protocol Implementation:** Direct communication handling for printer job submission.
 
